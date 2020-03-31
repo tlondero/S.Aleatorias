@@ -1,18 +1,17 @@
 function [med, sigma] = ejercicio1(lambda, samples, bins)
     unif = unifrnd(0,1,[1 samples]);
     exp_dist = log(1./(1 - unif))/lambda;
-    %exp_dist = exp_dist.*(lambda/exp_dist(1));
-    %figure(1)
-    %histfit(exp_dist, bins, 'exponential')
-        
-    aux = 0:1/samples:6;
+    
+    aux = 0:3/samples:3 - 3/samples;
     exp_teo = lambda*exp(-lambda*aux);
     
-    %figure(2)
-    %histogram(exp_dist, bins, 'Normalization', 'probability')
-    hist(exp_dist, bins)
+    h = histogram(exp_dist,'Normalization','probability') ;        
+    %h = hist(exp_dist, bins);
+    %h = histfit(exp_dist, bins, 'exponential');
+    
     hold on
-    plot(aux, exp_teo*50);
+    p = plot(aux, exp_teo);
+    p(1).LineWidth = 2.5;
     
     med = mean(exp_dist);
     sigma = std(exp_dist)^2;
