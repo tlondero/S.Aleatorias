@@ -1,4 +1,4 @@
-function [med, sigma2] = ejercicio1(lambda, samples, bins)
+function [med, sigma2] = montecarlo(lambda, samples, bins)
     unif = unifrnd(0,1,[1 samples]);
     exp_dist = log(1./(1 - unif))/lambda;
     
