@@ -46,7 +46,11 @@ Luego, se realizaron nuevas iteraciones, bajo las mismas especificaciones previa
 	\label{fig:media-mc}
 \end{figure}
 
-Se concluye que la media comprende una V.A. gaussiana, con media y desvío igual a la de la exponencial. \textcolor{red}{\textbf{CHEQUEAR ESTO ÚLTIMO.}} Esto se debe a \textcolor{red}{\textbf{INSERTAR CHAMUYO TEÓRICO DE PORQUE TIENDE A LA NORMAL.}}
+Se concluye que la media comprende una V.A. gaussiana, con media $\mu = n \cdot \frac{1}{\lambda}$
+ y varianza $ \sigma ^2 = n \cdot \frac{1}{\lambda ^2}$. Esto se debe a el teorema central del límite, el cual  indica que, en condiciones muy generales, si Sn es la suma de n
+ variables aleatorias independientes y de varianza no nula pero finita, entonces la función de distribución de Sn ,se aproxima bien, a una distribución normal.
+  Así pues, el teorema asegura que esto ocurre cuando la suma de
+   estas variables aleatorias e independientes es lo suficientemente grande, el cual es nuestro caso.
 
 Finalmente, se desea estimar la cantidad de elementos que se deben generar para estimar la media $\mu_Y$ a través del estimador tal que la probabilidad de que el valor estimado de la media $m_Y$ se aparte más del $6\%$ del valor teórico sea menor al $1\%$, es decir calcular $P\left\lbrace | m_Y - \mu_Y | > \ 0.06 \mu_Y \right\rbrace \leq 0.01$. Gracias a la desigualdad de Tchebycheff, se puede asegurar que
 \begin{equation}
@@ -55,6 +59,35 @@ Finalmente, se desea estimar la cantidad de elementos que se deben generar para 
 	\end{aligned}
 \end{equation}
 
-\textcolor{red}{\textbf{MOMENTO... NO ENTIENDO QUE ME PIDE EL PUNTO D... PUTA QUE SAD.}}
+\textcolor{red}{\textbf{MOMENTO... NO ENTIENDO QUE ME PIDE EL PUNTO D... PUTA QUE SAD.}}\\
+Se pide calcular: 
+\begin{equation}
+P\left( | m_Y - \mu_Y | < \ -0.06 \mu_Y \right) \leq 0.01
+\end{equation}
+\begin{equation}
+2\cdot P\left( m_Y - \mu_Y < \ -0.06 \mu_Y \right) \leq 0.01
+\end{equation}
+\begin{equation}
+P\left(  \frac{m_Y - \mu_Y}{\sigma_Y}\cdot \sqrt{N} < \ -0.06 \cdot \frac{\mu_Y}{\sigma_Y}\cdot \sqrt{N} \right) \leq 0.005
+\end{equation}
+Siendo $\frac{m_Y - \mu_Y}{\sigma_Y}\cdot \sqrt{N}$ mi nueva VA con distribucion normal estándar $\Phi$
+\begin{equation}
+\Phi\left( -0.06 \cdot \frac{\mu_Y}{\sigma_Y}\cdot \sqrt{N} \right) \leq 0.005
+\end{equation}
 
+\begin{equation}
+\Phi\left( 0.06 \cdot \frac{\mu_Y}{\sigma_Y}\cdot \sqrt{N} \right) \geq 0.995
+\end{equation}
+
+\begin{equation}
+ 0.06 \cdot \frac{\mu_Y}{\sigma_Y}\cdot \sqrt{N} \geq \Phi \left( 0.995 \right)
+\end{equation}
+\begin{equation}
+N \geq \left[ \Phi \left( 0.995 \right) \cdot \frac{\sigma_Y}{\mu_Y \cdot 0.06}\right]^2\footnote{$\mu_Y = \frac{1}{\lambda} = \sigma_Y$  $\wedge$    $\Phi \left( 0.995 \right)=2.576$}
+\end{equation}
+\begin{equation}
+N \geq 1843 
+\end{equation}
+%\begin{equation}
+%\end{equation}
 \end{document}
