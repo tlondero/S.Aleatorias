@@ -1,7 +1,3 @@
-\input{../Informe/Header.tex}
-
-\begin{document}
-
 Utilizando el método de simulación de Montecarlo, se obtiene que, siendo $X$ un variable aleatoria uniforme entre 0 y 1, se puede obtener una distribución exponencial $Y$ dada por la función densidad de probailidad
 \begin{equation}
 	y(x) = \frac{1}{\lambda} ln\left( \frac{1}{1 - x} \right) \ \ \ \ 0 \leq x \leq 1
@@ -52,42 +48,40 @@ Se concluye que la media comprende una V.A. gaussiana, con media $\mu = n \cdot 
   Así pues, el teorema asegura que esto ocurre cuando la suma de
    estas variables aleatorias e independientes es lo suficientemente grande, el cual es nuestro caso.
 
-Finalmente, se desea estimar la cantidad de elementos que se deben generar para estimar la media $\mu_Y$ a través del estimador tal que la probabilidad de que el valor estimado de la media $m_Y$ se aparte más del $6\%$ del valor teórico sea menor al $1\%$, es decir calcular $P\left\lbrace | m_Y - \mu_Y | > \ 0.06 \mu_Y \right\rbrace \leq 0.01$. Gracias a la desigualdad de Tchebycheff, se puede asegurar que
-\begin{equation}
-	\begin{aligned}
-	\frac{{\sigma_Y}^2}{0.06 \mu_Y} = & \ 0.01
-	\end{aligned}
-\end{equation}
-
-\textcolor{red}{\textbf{MOMENTO... NO ENTIENDO QUE ME PIDE EL PUNTO D... PUTA QUE SAD.}}\\
-Se pide calcular: 
-\begin{equation}
-P\left( | m_Y - \mu_Y | > \ 0.06 \mu_Y \right) \leq 0.01
-\end{equation}
-\begin{equation}
-2\cdot P\left( m_Y - \mu_Y < \ -0.06 \mu_Y \right) \leq 0.01
-\end{equation}
-\begin{equation}
-P\left(  \frac{m_Y - \mu_Y}{\sigma_Y}\cdot \sqrt{N} < \ -0.06 \cdot \frac{\mu_Y}{\sigma_Y}\cdot \sqrt{N} \right) \leq 0.005
-\end{equation}
-Siendo $\frac{m_Y - \mu_Y}{\sigma_Y}\cdot \sqrt{N}$ mi nueva VA con distribucion normal estándar $\Phi$
-\begin{equation}
+Finalmente, se desea estimar la cantidad de elementos que se deben generar para estimar la media $\mu_Y$ a través del estimador tal que la probabilidad de que el valor estimado de la media $m_Y$ se aparte más del $6\%$ del valor teórico sea menor al $1\%$, es decir calcular $P\left\lbrace | m_Y - \mu_Y | > \ 0.06 \mu_Y \right\rbrace \leq 0.01$. %Gracias a la desigualdad de Tchebycheff, se puede asegurar que
+%\begin{equation}
+%	\begin{aligned}
+%	\frac{{\sigma_Y}^2}{0.06 \mu_Y} = & \ 0.01
+%	\end{aligned}
+%\end{equation}
+%
+%\textcolor{red}{\textbf{MOMENTO... NO ENTIENDO QUE ME PIDE EL PUNTO D... PUTA QUE SAD.}}\\
+Por lo tanto, se pide calcular: 
+\begin{equation*}
+	P\left\lbrace | m_Y - \mu_Y | > \ 0.06 \mu_Y \right\rbrace \leq 0.01
+\end{equation*}
+\begin{equation*}
+	2\cdot P\left\lbrace m_Y - \mu_Y < \ -0.06 \mu_Y \right\rbrace \leq 0.01
+\end{equation*}
+\begin{equation*}
+	P\left\lbrace  \frac{m_Y - \mu_Y}{\sigma_Y}\cdot \sqrt{N} < \ -0.06 \cdot \frac{\mu_Y}{\sigma_Y}\cdot \sqrt{N} \right\rbrace \leq 0.005
+\end{equation*}
+Siendo $\frac{m_Y - \mu_Y}{\sigma_Y}\cdot \sqrt{N}$ mi nueva V.A. con distribucion normal estándar $\Phi$
+\begin{equation*}
 \Phi\left( -0.06 \cdot \frac{\mu_Y}{\sigma_Y}\cdot \sqrt{N} \right) \leq 0.005
-\end{equation}
+\end{equation*}
 
-\begin{equation}
+\begin{equation*}
 \Phi\left( 0.06 \cdot \frac{\mu_Y}{\sigma_Y}\cdot \sqrt{N} \right) \geq 0.995
-\end{equation}
+\end{equation*}
 
-\begin{equation}
+\begin{equation*}
  0.06 \cdot \frac{\mu_Y}{\sigma_Y}\cdot \sqrt{N} \geq \Phi \left( 0.995 \right)
-\end{equation}
-\begin{equation}
-N \geq \left[ \Phi \left( 0.995 \right) \cdot \frac{\sigma_Y}{\mu_Y \cdot 0.06}\right]^2\footnote{$\mu_Y = \frac{1}{\lambda} = \sigma_Y$  $\wedge$    $\Phi \left( 0.995 \right)=2.576$}
-\end{equation}
+\end{equation*}
+\begin{equation*}
+	N \geq \left[ \Phi \left( 0.995 \right) \cdot \frac{\sigma_Y}{\mu_Y \cdot 0.06}\right]^2
+\end{equation*}
+Sabiendo que $\mu_Y = \frac{1}{\lambda} = \sigma_Y$ y $\Phi \left( 0.995 \right)=2.576$
 \begin{equation}
 N \geq 1843 
 \end{equation}
-%\begin{equation}
-%\end{equation}
-\end{document}
