@@ -66,6 +66,7 @@ Por lo tanto, se pide calcular:
 \begin{equation*}
 	P\left\lbrace  \frac{m_Y - \mu_Y}{\sigma_Y}\cdot \sqrt{N} < \ -0.06 \cdot \frac{\mu_Y}{\sigma_Y}\cdot \sqrt{N} \right\rbrace \leq 0.005
 \end{equation*}
+
 Siendo $\frac{m_Y - \mu_Y}{\sigma_Y}\cdot \sqrt{N}$ mi nueva V.A. con distribucion normal estándar $\Phi$
 \begin{equation*}
 \Phi\left( -0.06 \cdot \frac{\mu_Y}{\sigma_Y}\cdot \sqrt{N} \right) \leq 0.005
@@ -81,12 +82,13 @@ Siendo $\frac{m_Y - \mu_Y}{\sigma_Y}\cdot \sqrt{N}$ mi nueva V.A. con distribuci
 \begin{equation*}
 	N \geq \left[ \Phi \left( 0.995 \right) \cdot \frac{\sigma_Y}{\mu_Y \cdot 0.06}\right]^2
 \end{equation*}
+
 Sabiendo que $\mu_Y = \frac{1}{\lambda} = \sigma_Y$ y $\Phi \left( 0.995 \right)=2.576$
 \begin{equation}
 N \geq 1843 
 \end{equation}
-Finalmente se implementó en código para verificar que esto verifique, como se ve a continuación.
 
+Finalmente se implementó el siguiente código en matlab para verificar que la conclusión obtenida es correcta. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.4\linewidth]{./ImagenesEjercicio1/implemetacion.PNG}
