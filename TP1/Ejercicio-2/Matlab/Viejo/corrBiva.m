@@ -14,7 +14,11 @@ resultMat = [];
 for i = 1 : muestras
     resultMat(:,i) = Zvt*mat(:,i); 
 end
-
+axis equal
+figure(1)
+plot(x,y,'.')
+figure(2)
+axis equal
 plot(resultMat(1,:), resultMat(2,:),'.');
 
 end
