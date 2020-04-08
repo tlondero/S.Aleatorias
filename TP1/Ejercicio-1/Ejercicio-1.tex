@@ -1,9 +1,9 @@
-Utilizando el método de simulación de Montecarlo, se obtiene que, siendo $X$ un variable aleatoria uniforme entre 0 y 1, se puede obtener una distribución exponencial $Y$ dada por la función densidad de probailidad
+Utilizando el método de simulación de Montecarlo, se obtiene que, siendo $X$ un variable aleatoria uniforme entre 0 y 1, se puede obtener una distribución exponencial $Y$ dada por la función densidad de probabilidad
 \begin{equation}
 	y(x) = \frac{1}{\lambda} ln\left( \frac{1}{1 - x} \right) \ \ \ \ 0 \leq x \leq 1
 \end{equation}
 
-Valiendose de las funciones ``hist'', ``mean'' y ``std'' de Matlab, se asignó arbitrariamente un valor a lambda, en este caso $\lambda = 2$. Además se tomaron 5000 muestras, de forma que se obtuvieron los siguientes resultados:
+Valiéndose de las funciones ``hist'', ``mean'' y ``std'' de \textbf{Matlab}, se asignó arbitrariamente un valor a lambda, en este caso $\lambda = 2$. Además se tomaron 5000 muestras, de forma que se obtuvieron los siguientes resultados:
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth]{./ImagenesEjercicio1/Simu-1.png}
@@ -18,9 +18,9 @@ Valiendose de las funciones ``hist'', ``mean'' y ``std'' de Matlab, se asignó a
 \end{aligned}
 \end{equation}
 
-Es así que se observa en la Figura (\ref{fig:primerit}) la curva de la f.d.p. teórica sobre el histograma obtenido, confirmando así que se obtuvo realmente una variable aleatoria con la distribución deseada. Además, se desea constatar que los valores de $\mu_{Y}$ y ${\sigma_{Y}}^{2}$, son correctos. Por ser $Y$ una V.A. exponencial, se sabe que $\mu_{Y} = \frac{1}{\lambda}$ y ${\sigma_{Y}}^{2} = \frac{1}{\lambda^2}$, que para el caso presentado son $0.5$ y $0.25$ respectivamente. Si bien los resultados obtenidos no son exactamente iguales, son proximos, siendo el error existente aceptable.  
+Es así que se observa en la Figura (\ref{fig:primerit}) la curva de la f.d.p. teórica sobre el histograma obtenido, confirmando así que se obtuvo realmente una variable aleatoria con la distribución deseada. Además, se desea constatar que los valores de $\mu_{Y}$ y ${\sigma_{Y}}^{2}$, son correctos. Por ser $Y$ una V.A. exponencial, se sabe que $\mu_{Y} = \frac{1}{\lambda}$ y ${\sigma_{Y}}^{2} = \frac{1}{\lambda^2}$, que para el caso presentado son $0.5$ y $0.25$ respectivamente. Si bien los resultados obtenidos no son exactamente iguales, son próximos, siendo el error existente aceptable.  
 
-Bajo las condiciones mencionadas previamente, se realizaron 10 iteracipones más. De esta forma, se obtuvieron los siguientes vores de media y desvio estandar:
+Bajo las condiciones mencionadas previamente, se realizaron 10 iteraciones más. De esta forma, se obtuvieron los siguientes valores de media y varianza:
 \begin{table}[H]
 \centering
 \begin{tabular}{ccccccccccc}
@@ -29,7 +29,7 @@ Bajo las condiciones mencionadas previamente, se realizaron 10 iteracipones más
 $\mathbf{\mu}$          & 0,4966     & 0,5015     & 0,5091     & 0,5011     & 0,5095     & 0,4986     & 0,5054     & 0,4856     & 0,4948     & 0,4958      \\
 $\mathbf{{\sigma}^{2}}$ & 0,2523     & 0,2548     & 0,2511     & 0,2593     & 0,2600     & 0,2565     & 0,2567     & 0,2373     & 0,2352     & 0,2431     \\ \hline
 \end{tabular}
-\caption{Iteraciones con valores de media y desvio para la V.A. generada.}
+\caption{Iteraciones con valores de media y varianza para la V.A. generada.}
 \end{table}
 
 Observando la tabla previa, se repite lo mencionado anteriormente, es decir, que si bien no se obtienen los valores teóricos exactos, estos son proximos a los deseados.
@@ -67,7 +67,7 @@ Por lo tanto, se pide calcular:
 	P\left\lbrace  \frac{m_Y - \mu_Y}{\sigma_Y}\cdot \sqrt{N} < \ -0.06 \cdot \frac{\mu_Y}{\sigma_Y}\cdot \sqrt{N} \right\rbrace \leq 0.005
 \end{equation*}
 
-Siendo $\frac{m_Y - \mu_Y}{\sigma_Y}\cdot \sqrt{N}$ mi nueva V.A. con distribucion normal estándar $\Phi$
+Siendo $\frac{m_Y - \mu_Y}{\sigma_Y}\cdot \sqrt{N}$ mi nueva V.A. con distribución normal estándar $\Phi$
 \begin{equation*}
 \Phi\left( -0.06 \cdot \frac{\mu_Y}{\sigma_Y}\cdot \sqrt{N} \right) \leq 0.005
 \end{equation*}
@@ -88,10 +88,10 @@ Sabiendo que $\mu_Y = \frac{1}{\lambda} = \sigma_Y$ y $\Phi \left( 0.995 \right)
 N \geq 1843 
 \end{equation}
 
-Finalmente se implementó el siguiente código en matlab para verificar que la conclusión obtenida es correcta. 
+Finalmente se implementó el siguiente código en Matlab para verificar que la conclusión obtenida es correcta. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.4\linewidth]{./ImagenesEjercicio1/implemetacion.PNG}
-	\caption{Codigo de verificación en matlab.}
+	\caption{Código de verificación en Matlab.}
 	\label{fig:imple}
 \end{figure}
