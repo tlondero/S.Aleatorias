@@ -1,29 +1,39 @@
-function [X, Y2, meanX, meanY, A, Ainv, sigX, sigY, xovar] = main(mean1, mean2, sigx1, sigx2, corr, samples)
+function [X, Y2] = main(mean1, mean2, sigx1, sigx2, corr, samples)
 
 %1) Creamos el vector media de X y su matriz de covarianza sigma X.
 meanX = [mean1; mean2];
 sigX = [sigx1*sigx1, corr*sigx1*sigx2; corr*sigx1*sigx2, sigx2*sigx2];
 
-%Ahora que tenemos eso, podemos calcular los valores de X. "eig" nos devuelve los autovectores ya normalizados.
+%Ahora calculamos los avas de X. "eig" nos devuelve los autovectores 
+%ya normalizados.
 [A0, sigY0] = eig(sigX);
 
-A = [A0(2,:);A0(1,:)]; % Invierto el orden de las filas, que por algun motivo si no lo hago me invierte los ejes luego.
+%Invierto el orden de las filas, que por algun motivo si no se realiza
+% se invierten los ejes luego.
+A = [A0(2,:);A0(1,:)]; 
 sigY = [sigY0(2,2), 0;0, sigY0(1,1)];
 
-[y1, y2] = genX(sqrt(sigY(1,1)), sqrt(sigY(2,2)), samples); % Generamos Y, siendo sus varianzas los autovalores de sigma X.
-Y = [y1; y2]; %Prolijidad/Sintaxis.
+% Generamos Y, siendo sus varianzas los autovalores de sigma X. y su 
+%vector de medias meanY
+[y1, y2] = genX(sqrt(sigY(1,1)), sqrt(sigY(2,2)), samples); 
+Y = [y1; y2];
+meanY = A*meanX; % Esto es una ecuacion del libro y ya. 
 
-meanY = A*meanX; % Esto es una ecuación del libro y ya. 
-Y2 = Y + meanY;
-Ainv = inv(A); %Matriz ortogonal -> Inversa = Transpuesta
-X = Ainv*Y2;
+%generamos el vector aleatorio Y2 con media distinta de 0
+Y2 = Y + meanY; 
+AT = A'; %Matriz ortogonal -> Inversa = Traspuesta
 
+ %Vector aleatorio X gaussiano Bivariable
+X = AT*Y2; 
+
+%Ploteamos el vector Y2 incorrelacionadas
 figure(1)
 plot(Y2(1,:),Y2(2,:),'.');
 axis equal
+
+%ploteamos el vector X ya correlacionadas
 figure(2)
 plot(X(1,:), X(2,:),'.');
 axis equal
 
-xovar = cov(X(1,:),X(2,:));
 end

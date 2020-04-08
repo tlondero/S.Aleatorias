@@ -3,7 +3,7 @@ function [x1,x2] = genX( sig1, sig2, samples )
 %   con valores dist normal no correlacionados
 %LLama las funciones rayleigh_dist y theta_dist para generar las variables
 % gaussianas
-%Devuelve dos vectores con distribucion gaussiana
+%Devuelve dos vectores c
 ray = rayleigh_dist(samples);   
 thet = theta_dist(samples);
 %genero las gaussianas
