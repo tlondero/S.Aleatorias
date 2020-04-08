@@ -1,4 +1,4 @@
-function [med, sigma2] = iteraciones(lambda, samples, bins, it)
+function [med, sigma2] = iteraciones(lambda, samples, it)
     med_aux = [1 it];
     sigma2_aux = [1 it];
     for i = 1:it
