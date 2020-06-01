@@ -39,7 +39,9 @@ function Main(x,kmax)
     
     %PUNTO 3
     
+    %Caculamos Rxx y rxx
     
+    %Graficamos Rxx y rxx
     
     %PUNTO 4
     
@@ -49,7 +51,6 @@ function Main(x,kmax)
     FftPeriod = (abs(fft(x)).^2)./max(size(x));
     hold on
     p3 = plot(FftPeriod);
-    %legend('No polarizado', 'Polarizado');
     p3(1).LineWidth = 1;
     figure();
     
@@ -63,14 +64,5 @@ function Main(x,kmax)
     p5 = plot( [1:length(FftRxxp)].*length(FftPeriod)./length(FftRxxp), FftRxxp);
     p5(1).LineWidth = 1;
     legend('No polarizado', 'Polarizado');
-    
-    
-    
-    %Caculamos Rxx y rxx
-    
-    %Graficamos Rxx y rxx
-    
-    
-    
-        
+
 end
