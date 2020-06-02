@@ -15,9 +15,7 @@ Se estiman la autocorrelación mediante el uso de los primeros $128$ elementos d
 	R_{np}(k) = \frac{1}{N-k} \sum_{i=0}^{N-k-1} X(i)X(i+k)
 \end{gathered}
 \end{equation*}
-siendo $N$ el tamaño de $X(n)$, y $k = 0, 1, ... \ , 127$.
-
-Mediante el uso de estos, se normaliza para poder obtener los coeficientes de autocorrelación $r_{XXp}$ y $r_{XXnp}$. 
+En ellas se observan los parámetros $N$, es decir, el largo de $X(n)$, y $k$, variable que puede tomar los valores $0, 1, ... \ , 127$. Mediante el uso de estos estimadores, se normaliza para poder obtener los coeficientes de autocorrelación $r_{XXp}$ y $r_{XXnp}$. 
 
 \begin{figure}[H]
 \centering
@@ -37,7 +35,7 @@ Esto se debe a que existe una relación entre cada estimador, siendo esta
 Ya que, para el caso del vector analizado, se da la condición de que $N = 4096$, siendo entonces
 \begin{equation*}
 \begin{gathered}
-	R_{p}(k) = 0.969 \ R_{np}(k)
+	R_{p}(k) \approx 0.969 \ R_{np}(k)
 \end{gathered}
 \end{equation*}
 
@@ -51,7 +49,7 @@ Con los datos ya extraídos y mediante la resolución de la ecuación de Yule-Wa
 	\label{fig:phikk}
 \end{figure}
 
-En la Figura (\ref{fig:phikk}), a diferencia de la anterior, se obtuvo una mayor diferencia entre ambas curvas \textcolor{red}{ACÁ SE PODRÍA PONER ALGO A MODO DE REFLEXIÓN, DE PORQUÉ PASA ESTO O DE QUE SIGNIFICA, QUE SE YO AUXILIO.}
+En la Figura (\ref{fig:phikk}), a diferencia de la anterior, se obtuvo una mayor diferencia entre ambas curvas, pero ser un cambio significativo \textcolor{red}{ACÁ SE PODRÍA PONER ALGO A MODO DE REFLEXIÓN, DE PORQUÉ PASA ESTO O DE QUE SIGNIFICA, QUE SE YO AUXILIO.}
 
 \subsection{Acá vendría el punto 3 y 4 pero Frenkie me va a ayudar a escribirlo jaja beso}
 
