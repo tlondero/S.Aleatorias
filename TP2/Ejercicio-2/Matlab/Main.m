@@ -19,7 +19,7 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
     p1(1).LineWidth = 1.75;
     p1(2).LineWidth = 1.75;
     legend('No polarizado', 'Polarizado');
-    title("rxx");
+    title('r_{xx}');
     figure();
     %figure('$r_{xx}$ normalizado y no normalizado');
     
@@ -35,7 +35,7 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
     legend('No polarizado', 'Polarizado');
     p2(1).LineWidth = 1.75;
     p1(2).LineWidth = 1.75;
-    title("phi kk");
+    title('\phi_{kk}');
     figure();
     
     
@@ -55,6 +55,7 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
     hold on
     p3 = plot(FftPeriod);
     p3(1).LineWidth = 1;
+    title('Periodigrama calculado');
     figure();
     
     %FFT de Rxxs (estimados)
@@ -66,6 +67,7 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
     p4(1).LineWidth = 1;
     p5 = plot( [1:length(FftRxxp)].*length(FftPeriod)./length(FftRxxp), FftRxxp);
     p5(1).LineWidth = 1;
+    title('Periodigrama estimado');
     legend('No polarizado', 'Polarizado');
 
 end
