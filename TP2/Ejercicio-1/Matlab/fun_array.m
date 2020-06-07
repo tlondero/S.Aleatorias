@@ -12,7 +12,7 @@ funciones = {}; % Nose por que pero tiene que ser un arreglo de este tipo
 
 f1 = @(t)[6];
 funciones{1} = f1;
-f2 = @(t)[3*sin(t)];
+  f2 = @(t)[3*sin(t)];
 funciones{2} = f2;
 f3 = @(t)[-3*sin(t)];
 funciones{3} = f3;
