@@ -18,7 +18,7 @@ for i=1:cantidad_muestras
                       ]
    muestras_totales(:,i) = muestra_funcion;
 end
-
+exp_mean  = expected_value( functions, fun_quant,x_value)
 %Ploteo valores de funcion evaluada en t = pi/2 para multiples experimentos
 plot(muestras_totales(1,:),'r*');
 

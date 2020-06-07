@@ -1,4 +1,3 @@
-function [ exp_mean ] = expected_value( functions, fun_quant,x_value)
 function [ exp_mean ] = expected_value( cant_muestras, muestras)
 %EXPECTED_VALUE Valor esperado experimental de arreglo de muestras
 % functions , fun_quant = arreglo y tamano de funciones muestra
