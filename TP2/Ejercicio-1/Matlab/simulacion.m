@@ -24,4 +24,6 @@ plot(muestras_totales(1,:),'r*');
 
 % Calculos de Valor esperado y demas
 
+expected_value(cantidad_muestras,muestras_totales(1,:))
+
 end
