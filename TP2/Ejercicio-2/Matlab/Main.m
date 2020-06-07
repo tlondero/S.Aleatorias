@@ -41,8 +41,7 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
     
     %PUNTO 3
     %Debemos modelar X(n) a través de un Moving Average de orden 1.
-    % tita11 debe obtenerse a través de un proceso de prueba y error.
-    
+    thetas = thetacalculator(rxx);
     
     %Graficamos Rxx y rxx
     
