@@ -88,7 +88,7 @@ Para los instantes de t requeridos, obtenemos los siguientes resultados:
 	\item[•]E$\left[ Y_{(\frac{\pi}{2})}\right]$= 0 
 	\item[•]Var$\left[Y_{(\frac{\pi}{2})}\right]$= 15
 	\item[•]$R_{xx(\frac{\pi}{4},\frac{\pi}{2})}$= $\frac{1}{6} (72 + 18 \cos(\frac{\pi}{4}))$ = 14.12132
-	\item[•]$r_{xx(2\pi,\pi)} = \frac{R_{xx(\pi,2\pi)}}{15} = \frac{1}{6} (72 + 18 \cos(\pi))$ = 0.5801
+	\item[•]$r_{xx(2\pi,\pi)} = \frac{R_{xx(\pi,2\pi)}}{15} = \frac{ (12 + 3 \cos(\pi))}{15}$ = 0.6
 \end{enumerate}
 
 \subsection{Análisis Experimental}
@@ -196,7 +196,7 @@ Corriendo la simulaci[on para N = 1000, se arrojaron los siguientes resultados:
 	\label{fig:result}
 \end{figure}
 
-Observando la Figura (\ref{fig:result}) obtenemos que:
+Observando la figura (\ref{fig:result}) obtenemos que:
 \begin{enumerate}
 	\item[•]E$\left[ Y_{(\frac{\pi}{2})}\right]$= 0.0120 
 	\item[•]Var$\left[Y_{(\frac{\pi}{2})}\right]$= 14.6159
@@ -204,8 +204,17 @@ Observando la Figura (\ref{fig:result}) obtenemos que:
 	\item[•]$r_{xx(2\pi,\pi)}$= 0.5801
 \end{enumerate}
 
+Adicionalemente, analizamos para la media en $t_1 = \frac{\pi}{2}$ que E$\left[ Y_{(\frac{\pi}{2})}\right]\rightarrow 0$ a medida que se realizan simulaciones con N$\rightarrow \infty$
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/media.png}
+	\caption{.}
+	\label{fig:media}
+\end{figure}
 
 \subsection{Conclusiones sobre los resultados}
 
-Si comparamos los resultados obtenidos 
+Podemos concluir que para los valores experimentales, la media en $t_1 = \frac{\pi}{2}$ es cercana a cero y como se puede observar adicionalmente en la figura (\ref{fig:media}) 
+
+
 \end{document}
