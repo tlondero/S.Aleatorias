@@ -1,0 +1,15 @@
+function [ exp_var ] = var_exp(cant_muestras, muestras, exp_mean)
+%VAR_EXP Varianza experimental de arreglo de muestras
+% functions , fun_quant = arreglo y tamano de funciones muestra
+% t = valor de x en donde se quiere buscar la varianza del
+%           ensamble
+%Para calcular la varianza experimental precisamos de la media
+%experimental 
+exp_var = 0;   %inicializo en 0
+
+%Estimamos la varianza experimental
+for i=1:fun_quant 
+    exp_var = exp_var + (1/fun_quantcant_muestras)*(functions{i}(t))^2;
+end
+
+end

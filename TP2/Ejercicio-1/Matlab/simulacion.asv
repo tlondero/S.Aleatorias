@@ -16,7 +16,7 @@ for i=1:cantidad_muestras
                       ensamble{indice_funcion}(pi)   
                       ensamble{indice_funcion}(2*pi)
                       ];
-   muestras_totales(:,i) = muestra_funcion; %#ok<AGROW>
+   muestras_totales(:,i) = muestra_funcion;
 end
 
 %Ploteo valores de funcion evaluada en t = pi/2 para multiples experimentos
