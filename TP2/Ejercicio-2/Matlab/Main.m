@@ -73,20 +73,30 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
     figure();
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    %PERIODRIGRAMAS (PUNTO 5)
-    
-    %Periodigrama y plot
-    FftPeriod = (abs(fft(x)).^2)./max(size(x));
-    hold on
-    p3 = plot(FftPeriod);
-    p3(1).LineWidth = 1;
-    title('Periodigrama calculado');
-    figure();
-    %%%punto 5
+%periodograma
+aux = zeros(16,128);
 
-    
-    
-    
+for k = 1:16
+    for j = 0:127
+        prev = 0;
+        for i = 0:256-j-1
+            prev = prev + x(256*(k-1)+i+1+j) * x(256*(k-1)+i+1) ;%% Lo parto en bloques
+        end
+        aux(k,j+1) = (1/(256-j)) * prev;
+    end
+end
+Sxx = zeros(128,16);
+for j = 1:16
+    Sxx(:,j) = fft(aux(j,:));%%Se calcula la fft de la particion
+end
+Sxx = Sxx';
+uSxx = zeros(1,128);
+for j = 1:16
+    uSxx = uSxx + Sxx(j,:);%%Promedio
+end
+uSxx = uSxx/16;
+ p3 = plot([1:128],abs(uSxx)); 
+     figure();    
     %FFT de Rxxs (estimados)
     FftRxxnp=abs(fft([Rxxnp,fliplr(Rxxnp)]));
     FftRxxp=abs(fft([Rxxp,fliplr(Rxxp)]));
@@ -94,11 +104,11 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
     fftTeo=abs(fftTeo);
     
     hold on
-    p4 = plot( [1:length(FftRxxnp)].*length(FftPeriod)./length(FftRxxnp), FftRxxnp);
+    p4 = plot( [1:length(FftRxxnp)].*4096./length(FftRxxnp), FftRxxnp);
     p4(1).LineWidth = 1;
-    p5 = plot( [1:length(FftRxxp)].*length(FftPeriod)./length(FftRxxp), FftRxxp);
+    p5 = plot( [1:length(FftRxxp)].*4096./length(FftRxxp), FftRxxp);
     p5(1).LineWidth = 1;
-    p6 = plot( [1:length(fftTeo)].*length(FftPeriod)./length(fftTeo), fftTeo);
+    p6 = plot( [1:length(fftTeo)].*4096./length(fftTeo), fftTeo);
     p6(1).LineWidth = 1;
 
     title('Densidad espectral de Potencia');
@@ -106,37 +116,6 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
     figure();
     hold on
    
-% Por periodogramas
-Rxx_Vector = zeros(16,128);
-% Se divide la entrada en 16 grupos de 256 muestras, calculando
-% a 16 funciones de autocorrelación sus 128 primeros valores
-% para el caso no polarizado
-for l = 1:16
-    for k = 0:127
-        sum = 0;
-        for i = 0:256-k-1
-            sum = sum + (x(256*(l-1)+i+1) * x(256*(l-1)+i+1+k));
-        end
-        Rxx_Vector(l,k+1) = (1/(256-k)) * sum;
-    end
-end
-Sxx_Vector = zeros(128,16);
-% Se calcula la densidad espectral de cada uno
-for k = 1:16
-    Sxx_Vector(:,k) = fft(Rxx_Vector(k,:));
-end
-Sxx_Vector = Sxx_Vector';
-Sxx_Med = zeros(1,128);
-% Se estima la densidad promedio
-for k = 1:16
-    Sxx_Med = Sxx_Med + Sxx_Vector(k,:);
-end
-Sxx_Med = Sxx_Med/16;
-mag_SxxMed = abs(Sxx_Med);
-SxxNP(mag_SxxMed<1e-6) = 0;
-figure
- p3 = plot(1:128,mag_SxxMed); 
-     figure();
-    
+
     
 end
