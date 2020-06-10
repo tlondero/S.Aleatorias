@@ -70,9 +70,7 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
     p7(2).LineWidth = 1.75;
     legend('No polarizado', 'Polarizado','Analítico');
     title('R_{xx}');
-    figure();
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
+    figure();    
 %periodograma
 aux = zeros(16,128);
 
@@ -90,7 +88,7 @@ for j = 1:16
     Sxx(:,j) = fft(aux(j,:));%%Se calcula la fft de la particion
 end
 Sxx = Sxx';
-uSxx = zeros(1,128);
+uSxx = zeros(1,128); %% Vector de la potencia media de los periodigramas
 for j = 1:16
     uSxx = uSxx + Sxx(j,:);%%Promedio
 end
@@ -103,15 +101,14 @@ uSxx = uSxx/16;
     FftRxxp=abs(fft([Rxxp]));
     fftTeo=fft([RxxCalc]);
     fftTeo=abs(fftTeo);
-    
     hold on
-    p4 = plot( [1:length(FftRxxnp)], FftRxxnp);
+    p4 = plot( [1:length(FftRxxnp)], FftRxxnp);%No polarizado
     p4(1).LineWidth = 1;
-    p5 = plot( [1:length(FftRxxp)], FftRxxp);
+    p5 = plot( [1:length(FftRxxp)], FftRxxp);%polarizado
     p5(1).LineWidth = 1;
-    p6 = plot( [1:length(fftTeo)], fftTeo);
+    p6 = plot( [1:length(fftTeo)], fftTeo);%%FFt teorico
     p6(1).LineWidth = 1;
-    p3 = plot([1:128],abs(uSxx)); 
+    p3 = plot([1:128],abs(uSxx)); %%Periodigrama
     p3(1).LineWidth = 1;
     title('Densidad espectral de Potencia');
     legend('No polarizado', 'Polarizado','Analítico','Promediacion de periodogramas');
