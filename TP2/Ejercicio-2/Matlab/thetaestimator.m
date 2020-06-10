@@ -6,18 +6,18 @@ function [optimustheta, M] = thetaestimator(x, cantDec)
     sizeOfArr = size(x);
     errorTable = zeros(1,sizeOfArr(2)); % Creo un arreglo del tamaño del vector X. Con esto, trabajaré a prueba y error.
     theta = 0;
-    totalErrorPerTheta = zeros(1+cantElem*2,1+cantElem*2) %El +1 es por el 0.
+    totalErrorPerTheta = zeros(1+cantElem*2,1+cantElem*2); %El +1 es por el 0.
     lengthOfTotalError = size(totalErrorPerTheta);
     thetaindex = zeros(2,1+cantElem*2);
     
-    for n = -(cantElem):(cantElem);
+    for n = -(cantElem):(cantElem)
         theta21 = n/(cantElem+1);
         for m = -cantElem:cantElem
-            errorTable = zeros(1, sizeOfArr(2))
+            errorTable = zeros(1, sizeOfArr(2));
             theta22 = m/(cantElem+1);
         
-            errorTable(1) = x(1)
-            errorTable(2) = x(2) - theta21*errorTable(1)
+            errorTable(1) = x(1);
+            errorTable(2) = x(2) - theta21*errorTable(1);
             for l = 3:sizeOfArr(2)
                errorTable(l) = x(l) - theta21*errorTable(l-1) - theta22*errorTable(l-2);
             end
