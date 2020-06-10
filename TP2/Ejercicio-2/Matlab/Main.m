@@ -1,5 +1,5 @@
 function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
-
+%Hay que cargar el archivo1 y llamar a la funcion > Main(x, 128);
     %PUNTO 1
     
     %Creamos Rxxs (estimaciones)
@@ -92,27 +92,19 @@ uSxx = zeros(1,128); %% Vector de la potencia media de los periodigramas
 for j = 1:16
     uSxx = uSxx + Sxx(j,:);%%Promedio
 end
-uSxx = uSxx/16;
- p3 = plot([1:128],abs(uSxx)); 
-     figure();    
+uSxx = uSxx/16; 
 
     %FFT de Rxxs (estimados)
     FftRxxnp=abs(fft([Rxxnp]));
     FftRxxp=abs(fft([Rxxp]));
-    fftTeo=fft([RxxCalc]);
-    fftTeo=abs(fftTeo);
     hold on
     p4 = plot( [1:length(FftRxxnp)], FftRxxnp);%No polarizado
     p4(1).LineWidth = 1;
     p5 = plot( [1:length(FftRxxp)], FftRxxp);%polarizado
     p5(1).LineWidth = 1;
-    p6 = plot( [1:length(fftTeo)], fftTeo);%%FFt teorico
-    p6(1).LineWidth = 1;
-    p3 = plot([1:128],abs(uSxx)); %%Periodigrama
-    p3(1).LineWidth = 1;
+   p3 = plot([1:128],abs(uSxx)); %%Periodigrama
+   p3(1).LineWidth = 1;
     title('Densidad espectral de Potencia');
-    legend('No polarizado', 'Polarizado','Analítico','Promediacion de periodogramas');
-    figure();
-    hold on
+    legend('No polarizado', 'Polarizado','Promediacion de periodogramas');
     
 end
