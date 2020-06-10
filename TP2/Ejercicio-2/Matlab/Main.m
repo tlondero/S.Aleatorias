@@ -99,9 +99,9 @@ uSxx = uSxx/16;
      figure();    
 
     %FFT de Rxxs (estimados)
-    FftRxxnp=abs(fft([Rxxnp,fliplr(Rxxnp)]));
-    FftRxxp=abs(fft([Rxxp,fliplr(Rxxp)]));
-    fftTeo=fft([RxxCalc,fliplr(RxxCalc)]);
+    FftRxxnp=abs(fft([Rxxnp]));
+    FftRxxp=abs(fft([Rxxp]));
+    fftTeo=fft([RxxCalc]);
     fftTeo=abs(fftTeo);
     
     hold on
@@ -111,12 +111,11 @@ uSxx = uSxx/16;
     p5(1).LineWidth = 1;
     p6 = plot( [1:length(fftTeo)], fftTeo);
     p6(1).LineWidth = 1;
-
+    p3 = plot([1:128],abs(uSxx)); 
+    p3(1).LineWidth = 1;
     title('Densidad espectral de Potencia');
-    legend('No polarizado', 'Polarizado','Analítico');
+    legend('No polarizado', 'Polarizado','Analítico','Promediacion de periodogramas');
     figure();
     hold on
-   
-
     
 end
