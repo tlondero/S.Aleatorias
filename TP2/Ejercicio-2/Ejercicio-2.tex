@@ -80,13 +80,13 @@ Con lo ya dicho, se procede a estimar los parámetros del proceso y compararlos 
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0.7cm},clip]{./ImagenesEjercicio2/Rxxcalc.png}
-	\caption{Comparación de los coeficientes de autocorrelación normalizados.}
+	\caption{Comparación de los coeficientes de autocorrelación.}
 	\label{fig:Rxxcalc}
 \end{figure}
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0.7cm},clip]{./ImagenesEjercicio2/rrxxcalc.png}
-	\caption{Comparación de los coeficientes de autocorrelación parcial.}
+	\caption{Comparación de los coeficientes de autocorrelación normalizados.}
 	\label{fig:rrxxcalc2}
 \end{figure}
 
@@ -110,22 +110,15 @@ A continuación se comparan los estimaciones obtenidas previamente con la curva 
 	\label{fig:densidadPot}
 \end{figure}
 
-Como era de esperarse, la diferencia entre el gráfico obtenido a través de la estimación polarizada no difiere tanto de la no polarizada.
+Como era de esperarse, la diferencia entre el gráfico obtenido a través de la estimación polarizada no difiere tanto de la no polarizada, mientras que hay una  constante de difernecia con la calculada analíticamente.
 
-La segunda técnica consta de la promediación de periodigramas. Transformando con Fourier el vector analizado se obtiene
+La segunda técnica consta de la promediación de periodigramas. Para esto se partió el vector original en 16 grupos de 256 elementos, a los que se le aplico la transformada rápida de fourier y luego fueron promediados.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0.725cm},clip]{./ImagenesEjercicio2/period-calc.png}
-	\caption{FFT calculado.}
+	\caption{Estimación de la densidad espectral de potencia mediante el uso de promediacion de periodigramas.}
 	\label{fig:fft-calc}
 \end{figure}
-
-Finalmente, a modo comparativo, se ilustran las estimaciones obtenidas superpuestas:
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0.725cm},clip]{./ImagenesEjercicio2/fft2.png}
-	\caption{Estimaciones de potencia.}
-	\label{fig:fft2}
-\end{figure}
+Puede notarse que si bien la forma característica de la PDF es similar a las obtenidas previamente no es tan ancha la separación entre picos.
 
 \end{document}

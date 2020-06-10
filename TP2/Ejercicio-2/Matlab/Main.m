@@ -97,6 +97,7 @@ end
 uSxx = uSxx/16;
  p3 = plot([1:128],abs(uSxx)); 
      figure();    
+
     %FFT de Rxxs (estimados)
     FftRxxnp=abs(fft([Rxxnp,fliplr(Rxxnp)]));
     FftRxxp=abs(fft([Rxxp,fliplr(Rxxp)]));
@@ -104,11 +105,11 @@ uSxx = uSxx/16;
     fftTeo=abs(fftTeo);
     
     hold on
-    p4 = plot( [1:length(FftRxxnp)].*4096./length(FftRxxnp), FftRxxnp);
+    p4 = plot( [1:length(FftRxxnp)], FftRxxnp);
     p4(1).LineWidth = 1;
-    p5 = plot( [1:length(FftRxxp)].*4096./length(FftRxxp), FftRxxp);
+    p5 = plot( [1:length(FftRxxp)], FftRxxp);
     p5(1).LineWidth = 1;
-    p6 = plot( [1:length(fftTeo)].*4096./length(fftTeo), fftTeo);
+    p6 = plot( [1:length(fftTeo)], fftTeo);
     p6(1).LineWidth = 1;
 
     title('Densidad espectral de Potencia');
