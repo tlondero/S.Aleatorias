@@ -59,18 +59,28 @@ Finalmente
 \end{gathered}
 \end{equation*}
 
-Este proceso tiene media y varianza constantes para todo instante t, sea cual fue
+Este proceso tiene media y varianza constantes para todo instante t.
+
+La autocorrelaci[on para dos instantes t1 y t2
+
+
+El coeficiente de autocorrelaci[on 
 
 
 \subsection{Análisis Experimental}
 
-Para el análisis sobre los valores pedidos es necesario generar múltiples muestras sobre el proceso, en los instantes de tiempo requeridos. En primer luga, se obtiene un número entero al azar entre 1 y 6. Esto constituye el experimento que determina qué función miembro del ensamble resulta. Al ser 6 funciones y equiprobables esta resulta la manera más sencilla. A partir de la determinacion de la función correspondiente se evalua en los valores.
+Para el análisis sobre los valores pedidos es necesario generar múltiples muestras sobre el proceso, en los instantes de tiempo requeridos. En primer lugar, se obtiene un número entero al azar entre 1 y 6, simulando la tirada de un dado, el cual determina qué función miembro del ensamble resulta.
+A partir de la determinacion de la función correspondiente se evalua en los valores de instantes t pedidos, obteniendose:
 
-\begin{center}
-    $Y(\pi/2)$ $Y(\pi/4)$ $Y(\pi)$ $Y(2\pi)$
-\end{center}
+\begin{enumerate}
+   \item[•] $Y(\pi/2)$
+   \item[•] $Y(\pi/4)$
+   \item[•] $Y(\pi)$
+   \item[•] $Y(2\pi)$
+\end{enumerate}
 
-Los mismos se organizan como un vector. El procedimiento detallado luego se repite una gran cantidad de veces, obteniendo un arreglo de vectores conteniendo muestras del proceso.
+Estos valores obtenidos se guardan como un vector. Luego, se repite el procedimiento N = 1000 veces 
+y se obtiene un arreglo de vectores conteniendo muestras del proceso.
 
 A continuación, se muestran los resultados para $X(\pi/2)$ para N experimentos realizados.
 
