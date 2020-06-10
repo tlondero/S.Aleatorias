@@ -58,6 +58,22 @@ En la Figura (\ref{fig:phikk}) se obtuvo nuevamente una diferencia entre ambas c
 
 Se procede a determinar que tipo de modelo utilizar para el proceso analizado. Observando la Figura (\ref{fig:rxx}), se denota que $r_{XX}(1)$ y $r_{XX}(2)$ son valores distintos de 0 ($-0,603$ y $0,099$ para ambas aproximaciones), mientras que los valores siguientes, si bien no son exactamente 0, son todos menores en modulo a $0,03$, lo que permite aproximarlos a 0. Además, observando la Figura (\ref{fig:phikk}), se puede afirmar que los $\phi_{kk}$ presentan un comportamiento exponencial o similar a una senoidal amortiguada. Es por ello que se determina que el proceso es un \textbf{MA(2)} (\textbf{ARMA(0,2)}).
 
+Para el calculo de los $\theta$, se utilizaron las ecuaciones
+\begin{equation}
+	r_{XX}(1) = \frac{R_{XX}(1)}{\sigma_X^2} = \frac{\theta_{2,1} + \theta_{2,1} \theta_{2,2}}{1 +\theta_{2,1}^2 + \theta_{2,2}^2}
+\end{equation}
+\begin{equation}
+	r_{XX}(2) = \frac{\theta_{2,2}}{1 +\theta_{2,1}^2 + \theta_{2,2}^2}
+\end{equation}
+
+Resolviendo dicho sistema, se obtienen los siguientes valores:
+\begin{equation}
+\begin{gathered}
+	\theta_{2,1} = -1,280	\\
+	\theta_{2,2} = 0,268	
+\end{gathered}
+\end{equation}
+
 Con lo ya dicho, se procede a estimar los parámetros del proceso y compararlos con los ya obtenidos.
 
 %\begin{figure}[H]
@@ -93,8 +109,8 @@ La segunda técnica consta de la promediación de periodigramas. Transformando c
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0.725cm},clip]{./ImagenesEjercicio2/period-calc.png}
-	\caption{Periodigrama calculado.}
-	\label{fig:period-calc}
+	\caption{FFT calculado.}
+	\label{fig:fft-calc}
 \end{figure}
 
 \textcolor{red}{REFLEXIÓN DE LOS GRÁFICOS Y PORQUÉ UNO ES 5 VECES MÁS GRANDE QUE EL OTRO KCYO X2.}
