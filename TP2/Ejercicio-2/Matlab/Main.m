@@ -39,57 +39,83 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
     figure();
     
     
-    %PUNTO 3
+    %PUNTO 3 y 4
     %Debemos modelar X(n) a travÃ©s de un Moving Average de orden 2.
-%    thetas = thetacalculator(rxx);
-    %aca hay que obtener el cálculo analitico de la Rxx y rxx a partir de
-    %lo que calculo frankie.
-    %Graficamos Rxx y rxx
-    sizeOfX = size(x);
-    [thetas, min] = thetaestimator(x,1);
-   %%%%%%%%%%%%%%%%%%%%%%%%%%%
-   %MAGIA
-    syms th21x th22x
-    S= solve(rxxnp(2)*(th21x^2+th22x^2+1) == th21x*th22x+th21x, rxxnp(3)*(th21x^2+th22x^2+1) == th22x);
-    theta21v=real(vpa(S.th21x))
-    theta22v= real(vpa(S.th22x))
-    theta21= theta21v(2)
-    theta22=theta22v(2)
-%    theta21 = -1.239619050; %Pongo cada theta en una variable con su subindice en el nombre
-  %  theta22 =.2531328821;
-    varN = min/(sizeOfX(2) - 2); %Calculo la varianza de e(n) por fÃ³rmula (pÃ¡g 603)
+    syms th21x th22x%%resuelvo el sistema de ecuaciones
+    S= solve((round(rxxnp(2)*100)/100) *(th21x^2+th22x^2+1) == th21x*th22x+th21x, (round(rxxnp(3)*100)/100) *(th21x^2+th22x^2+1) == th22x);
+    theta21v=vpa(S.th21x);
+    theta22v= vpa(S.th22x);
+    theta21= theta21v(1);%valor de theta 21
+    theta22=theta22v(1);%valor de theta 22
     rxxCalc=  zeros(1, 128);
     rxxCalc(1)=(theta21*theta21+theta22*theta22+1)/(1+theta21^2+theta22^2);
     rxxCalc(2)= (theta21+theta21*theta22)/(1+theta21^2+theta22^2);
     rxxCalc(3)= theta22/(1+theta21^2+theta22^2);
+    Varn = double((round(Rxxnp(3)*1000)/1000)./theta22);
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %PUNTO 4
+    RxxCalc= rxxCalc*Varn ;
     
-    %PERIODRIGRAMAS (PUNTO 5)
-    
-    %Periodigrama y plot
-    FftPeriod = (abs(fft(x)).^2)./max(size(x));
+    %%Graficorxx estimaciones y analitico
     hold on
-    p3 = plot(FftPeriod);
-    p3(1).LineWidth = 1;
-    title('Periodigrama calculado');
+    p7 = plot(aux_rxx, rxxnp, aux_rxx, rxxp,aux_rxx,rxxCalc);
+    p7(1).LineWidth = 1.75;
+    p7(2).LineWidth = 1.75;
+    legend('No polarizado', 'Polarizado','Analítico');
+    title('r_{xx}');
     figure();
+        %%GraficoRxx estimaciones y analitico
+    hold on
+    p7 = plot(aux_rxx, Rxxnp, aux_rxx, Rxxp,aux_rxx,RxxCalc);
+    p7(1).LineWidth = 1.75;
+    p7(2).LineWidth = 1.75;
+    legend('No polarizado', 'Polarizado','Analítico');
+    title('R_{xx}');
+    figure();
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
+%periodograma
+aux = zeros(16,128);
+
+for k = 1:16
+    for j = 0:127
+        prev = 0;
+        for i = 0:256-j-1
+            prev = prev + x(256*(k-1)+i+1+j) * x(256*(k-1)+i+1) ;%% Lo parto en bloques
+        end
+        aux(k,j+1) = (1/(256-j)) * prev;
+    end
+end
+Sxx = zeros(128,16);
+for j = 1:16
+    Sxx(:,j) = fft(aux(j,:));%%Se calcula la fft de la particion
+end
+Sxx = Sxx';
+uSxx = zeros(1,128);
+for j = 1:16
+    uSxx = uSxx + Sxx(j,:);%%Promedio
+end
+uSxx = uSxx/16;
+ p3 = plot([1:128],abs(uSxx)); 
+     figure();    
     %FFT de Rxxs (estimados)
     FftRxxnp=abs(fft([Rxxnp,fliplr(Rxxnp)]));
     FftRxxp=abs(fft([Rxxp,fliplr(Rxxp)]));
-    fftTeo=fft([rxxCalc,fliplr(rxxCalc)]);
+    fftTeo=fft([RxxCalc,fliplr(RxxCalc)]);
     fftTeo=abs(fftTeo);
     
     hold on
-    p4 = plot( [1:length(FftRxxnp)].*length(FftPeriod)./length(FftRxxnp), FftRxxnp);
+    p4 = plot( [1:length(FftRxxnp)].*4096./length(FftRxxnp), FftRxxnp);
     p4(1).LineWidth = 1;
-    p5 = plot( [1:length(FftRxxp)].*length(FftPeriod)./length(FftRxxp), FftRxxp);
+    p5 = plot( [1:length(FftRxxp)].*4096./length(FftRxxp), FftRxxp);
     p5(1).LineWidth = 1;
-    p6 = plot( [1:length(fftTeo)].*length(FftPeriod)./length(fftTeo), fftTeo);
+    p6 = plot( [1:length(fftTeo)].*4096./length(fftTeo), fftTeo);
     p6(1).LineWidth = 1;
-    title('FFT estimado');
-    legend('No polarizado', 'Polarizado');
 
+    title('Densidad espectral de Potencia');
+    legend('No polarizado', 'Polarizado','Analítico');
+    figure();
+    hold on
+   
+
+    
 end

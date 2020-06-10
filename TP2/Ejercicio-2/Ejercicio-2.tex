@@ -55,27 +55,42 @@ En la Figura (\ref{fig:phikk}) se obtuvo nuevamente una diferencia entre ambas c
 
 %\subsection{Acá vendría el punto 3 y 4 pero Frenkie me va a ayudar a escribirlo jaja beso}
 \subsection{Modelo del proceso}
+\label{subsec:modelo}
 
 Se procede a determinar que tipo de modelo utilizar para el proceso analizado. Observando la Figura (\ref{fig:rxx}), se denota que $r_{XX}(1)$ y $r_{XX}(2)$ son valores distintos de 0 ($-0,603$ y $0,099$ para ambas aproximaciones), mientras que los valores siguientes, si bien no son exactamente 0, son todos menores en modulo a $0,03$, lo que permite aproximarlos a 0. Además, observando la Figura (\ref{fig:phikk}), se puede afirmar que los $\phi_{kk}$ presentan un comportamiento exponencial o similar a una senoidal amortiguada. Es por ello que se determina que el proceso es un \textbf{MA(2)} (\textbf{ARMA(0,2)}).
 
+Para el calculo de los $\theta$, se utilizaron las ecuaciones
+\begin{equation}
+	r_{XX}(1) = \frac{R_{XX}(1)}{\sigma_X^2} = \frac{\theta_{2,1} + \theta_{2,1} \theta_{2,2}}{1 +\theta_{2,1}^2 + \theta_{2,2}^2}
+\end{equation}
+\begin{equation}
+	r_{XX}(2) = \frac{\theta_{2,2}}{1 +\theta_{2,1}^2 + \theta_{2,2}^2}
+\end{equation}
+
+Resolviendo dicho sistema, se obtienen los siguientes valores:
+\begin{equation}
+\begin{gathered}
+	\theta_{2,1} = -1,280	\\
+	\theta_{2,2} = 0,268	
+\end{gathered}
+\end{equation}
+
 Con lo ya dicho, se procede a estimar los parámetros del proceso y compararlos con los ya obtenidos.
 
-%\begin{figure}[H]
-%\centering
-%	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0.7cm},clip]{./ImagenesEjercicio2/rxx2.png}
-%	\caption{Comparación de los coeficientes de autocorrelación.}
-%	\label{fig:rxx2}
-%\end{figure}
-%\begin{figure}[H]
-%\centering
-%	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0.7cm},clip]{./ImagenesEjercicio2/phikk2.png}
-%	\caption{Comparación de los coeficientes de autocorrelación parcial.}
-%	\label{fig:phikk2}
-%\end{figure}
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0.7cm},clip]{./ImagenesEjercicio2/Rxxcalc.png}
+	\caption{Comparación de los coeficientes de autocorrelación normalizados.}
+	\label{fig:Rxxcalc}
+\end{figure}
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0.7cm},clip]{./ImagenesEjercicio2/rrxxcalc.png}
+	\caption{Comparación de los coeficientes de autocorrelación parcial.}
+	\label{fig:rrxxcalc2}
+\end{figure}
 
 %Es así que... TUVIEJA
-
-
 
 \subsection{Densidad espectral de potencia}
 
@@ -85,6 +100,14 @@ A continuación, se estima la la densidad espectral de potencia del vector $X(n)
 	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0.725cm},clip]{./ImagenesEjercicio2/period-est.png}
 	\caption{Periodigramas obtenidos a partir de las estimaciones de $R_{XX}$.}
 	\label{fig:period-est}
+\end{figure}
+
+A continuación se comparan los estimaciones obtenidas previamente con la curva obtenida a partir de lo calculado en la Subsección (\ref{subsec:modelo}).
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0.725cm},clip]{./ImagenesEjercicio2/densidadPot.png}
+	\caption{Comparación de periodigramas.}
+	\label{fig:densidadPot}
 \end{figure}
 
 Como era de esperarse, la diferencia entre el gráfico obtenido a través de la estimación polarizada no difiere tanto de la no polarizada.
@@ -97,7 +120,12 @@ La segunda técnica consta de la promediación de periodigramas. Transformando c
 	\label{fig:fft-calc}
 \end{figure}
 
-\textcolor{red}{REFLEXIÓN DE LOS GRÁFICOS Y PORQUÉ UNO ES 5 VECES MÁS GRANDE QUE EL OTRO KCYO X2.}
-
+Finalmente, a modo comparativo, se ilustran las estimaciones obtenidas superpuestas:
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0.725cm},clip]{./ImagenesEjercicio2/fft2.png}
+	\caption{Estimaciones de potencia.}
+	\label{fig:fft2}
+\end{figure}
 
 \end{document}
