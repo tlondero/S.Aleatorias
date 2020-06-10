@@ -11,10 +11,11 @@ ensamble = fun_array();
 % Genero muestras de valores posibles del proceso a ciertos tiempos
 for i=1:cantidad_muestras
     indice_funcion =  randi(6); %Tiro el dado que determina funcion del ensamble
-    muestra_funcion =[ensamble{indice_funcion}(pi/2)  %Muestreo funcion correspondiente
-                      ensamble{indice_funcion}(pi/4)
-                      ensamble{indice_funcion}(pi)   
-                      ensamble{indice_funcion}(2*pi)
+    %Muestreo funcion correspondiente
+    muestra_funcion =[ensamble{indice_funcion}(pi/2)  %t1 = pi/2
+                      ensamble{indice_funcion}(pi/4)  %t2 = pi/4
+                      ensamble{indice_funcion}(pi)    %t3 = pi
+                      ensamble{indice_funcion}(2*pi)  %t4 = 2pi
                       ];
    muestras_totales(:,i) = muestra_funcion; %#ok<AGROW>
 end
@@ -23,14 +24,16 @@ end
 ejex = linspace(1,cantidad_muestras,cantidad_muestras);
 scatter(ejex, muestras_totales(1,:));
 
-% Calculos de Valor esperado y demas
-
+%Estimamos la media en t1= pi/2
 exp_mean_t1 = expected_value(cantidad_muestras,muestras_totales(1,:));
 
+%Estimamos la varianza en t2= pi/2
 var_t1 = var_exp(cantidad_muestras,muestras_totales(1,:));
 
+%Estimamos la autocorrelacion en t1= pi/2 y t2= pi/4
 autocorr_t1_t2 = autocorr_exp(cantidad_muestras,muestras_totales(1,:),muestras_totales(2,:));
 
+%Estimamos el coeficiente de autocorrelacion en t3= pi y t4= 2pi
 coef_autocorr_t3_t4 = autocorr_coef_exp(cantidad_muestras,muestras_totales(3,:),muestras_totales(4,:));
 
 end

@@ -16,7 +16,6 @@ exp_mean_t2 = expected_value(cant_muestras, muestras_t2);
 autocorr_t1 = autocorr_exp(cant_muestras, muestras_t1, muestras_t1);
 autocorr_t2 = autocorr_exp(cant_muestras, muestras_t2, muestras_t2);
 
-%Calculo del coeficiente de autocorrelacion
 coef_auto=(autocorr-(exp_mean_t1*exp_mean_t2))/sqrt(autocorr_t1*autocorr_t2);
 
 end
