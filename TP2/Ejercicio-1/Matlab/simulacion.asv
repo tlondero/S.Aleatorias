@@ -21,14 +21,12 @@ for i=1:cantidad_muestras
 end
 
 %Ploteo valores de funcion evaluada en t = pi/2 para multiples experimentos
-figure (1);
 ejex = linspace(1,cantidad_muestras,cantidad_muestras);
 scatter(ejex, muestras_totales(1,:));
 
 %Ploteo valores de funcion evaluada en t = pi/4 para multiples experimentos
-figure(2);
 ejex = linspace(1,cantidad_muestras,cantidad_muestras);
-scatter(ejex, muestras_totales(2,:));
+scatter(ejex, muestras_totales(1,:));
 
 %Estimamos la media en t1= pi/2
 exp_mean_t1 = expected_value(cantidad_muestras,muestras_totales(1,:));
