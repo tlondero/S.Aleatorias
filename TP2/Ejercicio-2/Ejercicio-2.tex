@@ -9,12 +9,12 @@ Se analiza una secuencia $X(n)$, estimando y calculando parámetros de interés,
 \subsection{Autocorrelación} 
 
 Se estiman la autocorrelación mediante el uso de los primeros $128$ elementos de la secuencia brindada. Para ello, se vale los estimadores polarizados ($R_{p}$) y no polarizados ($R_{np}$) de dicho parámetro. Estas funciones son las empleadas para estimar otras funciones mediante información digitalizada.
-\begin{equation*}
+\begin{equation}
 \begin{gathered}
 	R_{p}(k) = \frac{1}{N} \sum_{i=0}^{N-k-1} X(i)X(i+k)	\\
 	R_{np}(k) = \frac{1}{N-k} \sum_{i=0}^{N-k-1} X(i)X(i+k)
 \end{gathered}
-\end{equation*}
+\end{equation}
 En ellas se observan los parámetros $N$, es decir, el largo de $X(n)$, y $k$, variable que puede tomar los valores $0, 1, ... \ , 127$. Mediante el uso de estos estimadores, se normaliza para poder obtener los coeficientes de autocorrelación $r_{XXp}$ y $r_{XXnp}$. 
 
 \begin{figure}[H]
