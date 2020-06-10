@@ -90,13 +90,16 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
     fftTeo=abs(fftTeo);
     
     hold on
+    p3 = plot([1:length(FftPeriod)].*length(FftPeriod)./length(FftPeriod),FftPeriod);
+    p3(1).LineWidth = 1;
     p4 = plot( [1:length(FftRxxnp)].*length(FftPeriod)./length(FftRxxnp), FftRxxnp);
     p4(1).LineWidth = 1;
     p5 = plot( [1:length(FftRxxp)].*length(FftPeriod)./length(FftRxxp), FftRxxp);
     p5(1).LineWidth = 1;
     p6 = plot( [1:length(fftTeo)].*length(FftPeriod)./length(fftTeo), fftTeo);
     p6(1).LineWidth = 1;
+
     title('Densidad espectral de Potencia');
-    legend('No polarizado', 'Polarizado','Analítico');
+    legend('Periodigrama','No polarizado', 'Polarizado','Analítico');
 
 end
