@@ -1,0 +1,7 @@
+function [ ] = simulacion_al_cuadrado(  )
+%SIMULACION_AL_CUADRADO Summary of this function goes here
+%   Detailed explanation goes here
+for i=1:10
+
+end
+

@@ -6,6 +6,6 @@ function [ exp_mean ] = expected_value( cant_muestras, muestras)
 exp_mean = 0;%inicializo en 0
 for i=1:cant_muestras %se puede usar size(functions) pero me da fiaca
     %1/fun_quant deberia ser la probabilidad de cada funcion del ensamble
-    exp_mean = exp_mean + (1/6)*(muestras(i));
+    exp_mean = exp_mean + (1/cant_muestras)*(muestras(i));
 end
 end
