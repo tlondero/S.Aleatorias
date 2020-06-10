@@ -20,7 +20,7 @@ En ellas se observan los parámetros $N$, es decir, el largo de $X(n)$, y $k$, v
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0.7cm},clip]{./ImagenesEjercicio2/rxx.png}
-	\caption{Grafica de los coeficientes de autocorrelación total estiamdos.}
+	\caption{Grafica de los coeficientes de autocorrelación total estimados.}
 	\label{fig:rxx}
 \end{figure}
 
@@ -112,13 +112,14 @@ A continuación se comparan los estimaciones obtenidas previamente con la curva 
 
 Como era de esperarse, la diferencia entre el gráfico obtenido a través de la estimación polarizada no difiere tanto de la no polarizada, mientras que hay una  constante de difernecia con la calculada analíticamente.
 
-La segunda técnica consta de la promediación de periodigramas. Para esto se partió el vector original en 16 grupos de 256 elementos, a los que se le aplico la transformada rápida de fourier y luego fueron promediados.
+La segunda técnica consta de la promediación de periodigramas. Para esto se partió el vector original en 16 grupos de 256 elementos, a los que se les aplicó la transformada rápida de Fourier y luego fueron promediados.
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0.725cm},clip]{./ImagenesEjercicio2/period-calc.png}
+	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0.725cm},clip]{./ImagenesEjercicio2/period-calc.png}
 	\caption{Estimación de la densidad espectral de potencia mediante el uso de promediacion de periodigramas.}
 	\label{fig:fft-calc}
 \end{figure}
+
 Puede notarse que si bien la forma característica de la PDF es similar a las obtenidas previamente no es tan ancha la separación entre picos.
 
 \end{document}
