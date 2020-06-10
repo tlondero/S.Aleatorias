@@ -81,17 +81,90 @@ A partir de la determinacion de la función correspondiente se evalua en los val
 
 Estos valores obtenidos se guardan como un vector. Luego, se repite el procedimiento N = 1000 veces 
 y se obtiene un arreglo de vectores conteniendo muestras del proceso.
+El codigo de Matlab empleado para la simulaci[on de este proceso se detalla a continuaci[on 
+\\
 
-A continuación, se muestran los resultados para $X(\pi/2)$ para N experimentos realizados.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/main1.png}
+	\caption{.}
+	\label{fig:main1}
+\end{figure}
 
-AGREGAR IMAGEN DE MUESTRAS EN PI/2
+Donde la funcion fun-array() designa el ensamble solicitado, el c[odigo en Matlab:
 
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/fun_array.png}
+	\caption{.}
+	\label{fig:fun_array}
+\end{figure}
 
+A continuación, por ejemplo se muestran los resultados para $Y(\pi/2)$ para N = 100 experimentos realizados.
 
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.4\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/ypi_2.png}
+	\caption{.}
+	\label{fig:ypi_2}
+\end{figure}
 
-Se observa que esta no depende del tiempo, por lo cual en cualquier instante que se analize dara 0. Esto se correlaciona con los valores obtenidos experimentalmente. De las muestras se buscan las que corresponden a X(pi/2) y se busca el promedio entre ellas. Se puede observar también que el valor esperado experimental, se aproxima a 0 a medida que la cantidad de experimentos aumenta
+Tambi[en para $Y(\pi/4)$.
 
-Poner grafico valoresperado en funcion de las muestras.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.4\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/ypi_4.png}
+	\caption{.}
+	\label{fig:ypi_4}
+\end{figure}
+
+Observaci[on: En las Figuras (\ref{fig:ypi_2}) y (\ref{fig:ypi_4})se puede "estimar" visualmente que la media para el proceso es cero. 
+\\
+Luego, se calculan promediando los valores pedidos con el c[odigo:
+
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/main2.png}
+	\caption{.}
+	\label{fig:main2}
+\end{figure}
+
+Detallando cada funci[on:
+\begin{enumerate}
+\item[•] La funcio[n estimadora de la media en $t = \frac{\pi}{2}$, E$\left[ Y_{(\frac{\pi}{2})}\right]$
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/expval.png}
+	\caption{.}
+	\label{fig:expval}
+\end{figure}
+
+\item[•] La funci[on estimadora de la varianza en $t = \frac{\pi}{2}$, Var$\left[Y_{(\frac{\pi}{2})}\right]$
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/expvar.png}
+	\caption{.}
+	\label{fig:expvar}
+\end{figure}
+
+\item[•] La funci[on estimadora de la autocorrelacio[n en $t_1 = \frac{\pi}{4}$ y $t_2 = \frac{\pi}{2}$, $R_{xx(\frac{\pi}{4},\frac{\pi}{2})}$
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/autocorr.png}
+	\caption{.}
+	\label{fig:autocorr}
+\end{figure}
+
+\item[•] La funci[on estimadora del coeficiente de autocorrelacio[n en $t_3 = \frac{2\pi}{4}$ y $t_4 = \pi$, $r_{xx(2\pi,\pi)}$
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/coefauto.png}
+	\caption{.}
+	\label{fig:coefauto}
+\end{figure}
+\end{enumerate}
+\\
+Corriendo 
 
 
 

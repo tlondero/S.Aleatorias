@@ -20,3 +20,4 @@ autocorr_t2 = autocorr_exp(cant_muestras, muestras_t2, muestras_t2);
 coef_auto=(autocorr-(exp_mean_t1*exp_mean_t2))/sqrt(autocorr_t1*autocorr_t2);
 
 end
+
