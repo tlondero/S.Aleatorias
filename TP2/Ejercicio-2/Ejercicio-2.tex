@@ -49,12 +49,12 @@ Con los datos ya extraídos y mediante la resolución de la ecuación de Yule-Wa
 	\label{fig:phikk}
 \end{figure}
 
-En la Figura (\ref{fig:phikk}) se obtuvo nuevamente una diferencia entre ambas curvas, las cuales no son significativas.
+En la Figura (\ref{fig:phikk}) se obtuvo nuevamente una diferencia entre ambas curvas, la cual no es significativa.
 
 \subsection{Modelo del proceso}
 \label{subsec:modelo}
 
-Se procede a determinar que tipo de modelo utilizar para el proceso analizado. Observando la Figura (\ref{fig:rxx}), se denota que $r_{XX}(1)$ y $r_{XX}(2)$ son valores distintos de 0 ($-0,603$ y $0,099$ para ambas aproximaciones), mientras que los valores siguientes, si bien no son exactamente 0, son todos menores en modulo a $0,03$, lo que permite aproximarlos a 0. Además, observando la Figura (\ref{fig:phikk}), se puede afirmar que los $\phi_{kk}$ presentan un comportamiento exponencial o similar a una senoidal amortiguada. Es por ello que se determina que el proceso es un \textbf{MA(2)} (\textbf{ARMA(0,2)}).
+Se procede a determinar que tipo de modelo utilizar para el proceso analizado. Observando la Figura (\ref{fig:rxx}), se denota que $r_{XX}(1)$ y $r_{XX}(2)$ son valores distintos de 0 ($-0,603$ y $0,099$ para ambas aproximaciones), mientras que los valores siguientes, si bien no son exactamente 0, son todos menores en modulo a $0,03$, lo que permite aproximarlos a 0. Además, observando la Figura (\ref{fig:phikk}), se puede afirmar que los $\phi_{kk}$ presentan un comportamiento exponencial. Es por ello que se determina que el proceso es un \textbf{MA(2)} (\textbf{ARMA(0,2)}).
 
 Para el calculo de los $\theta$, se utilizaron las ecuaciones
 \begin{equation}
@@ -97,13 +97,13 @@ A continuación, se estima la la densidad espectral de potencia del vector $X(n)
 	\label{fig:period-est}
 \end{figure}
 
-A continuación se comparan los estimaciones obtenidas previamente con la curva obtenida a partir de lo calculado en la Subsección (\ref{subsec:modelo}).
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0.725cm},clip]{./ImagenesEjercicio2/densidadPot.png}
-	\caption{Comparación de periodigramas.}
-	\label{fig:densidadPot}
-\end{figure}
+%A continuación se comparan los estimaciones obtenidas previamente con la curva obtenida a partir de lo calculado en la Subsección (\ref{subsec:modelo}).
+%\begin{figure}[H]
+%\centering
+%	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0.725cm},clip]{./ImagenesEjercicio2/densidadPot.png}
+%	\caption{Comparación de periodigramas.}
+%	\label{fig:densidadPot}
+%\end{figure}
 
 Como era de esperarse, la diferencia entre el gráfico obtenido a través de la estimación polarizada no difiere tanto de la no polarizada, mientras que hay una constante de diferencia con la calculada analíticamente.
 
@@ -117,12 +117,12 @@ La segunda técnica consta de la promediación de periodigramas. Para esto se pa
 
 Puede notarse que si bien la forma característica de la PDF es similar a las obtenidas previamente no es tan ancha la separación entre picos.
 
-%Finalmente, a modo comparativo, se ilustran las estimaciones obtenidas superpuestas:
-%\begin{figure}[H]
-%\centering
-%	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0.725cm},clip]{./ImagenesEjercicio2/fft2.png}
-%	\caption{Estimaciones de potencia.}
-%	\label{fig:fft2}
-%\end{figure}
+Finalmente, a modo comparativo, se ilustran las estimaciones obtenidas superpuestas:
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0.725cm},clip]{./ImagenesEjercicio2/fft2.png}
+	\caption{Estimaciones de potencia.}
+	\label{fig:fft2}
+\end{figure}
 
 \end{document}
