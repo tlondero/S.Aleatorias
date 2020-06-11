@@ -55,7 +55,7 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
 
     RxxCalc= rxxCalc*Varn ;
     
-    %%Graficorxx estimaciones y analitico
+    %%Grafico rxx estimaciones y analitico 
     hold on
     p7 = plot(aux_rxx, rxxnp, aux_rxx, rxxp,aux_rxx,rxxCalc);
     p7(1).LineWidth = 1.75;
@@ -63,7 +63,7 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
     legend('No polarizado', 'Polarizado','Analítico');
     title('r_{xx}');
     figure();
-        %%GraficoRxx estimaciones y analitico
+        %%Grafico Rxx estimaciones y analitico
     hold on
     p7 = plot(aux_rxx, Rxxnp, aux_rxx, Rxxp,aux_rxx,RxxCalc);
     p7(1).LineWidth = 1.75;
@@ -74,11 +74,11 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
 %periodograma
 aux = zeros(16,128);
 
-for k = 1:16
-    for j = 0:127
+for k = 1:16% Lo parto en 16 bloques
+    for j = 0:127% y estimo (NP) los primeros 128 valores de la autocorrelacion de cada bloque
         prev = 0;
         for i = 0:256-j-1
-            prev = prev + x(256*(k-1)+i+1+j) * x(256*(k-1)+i+1) ;%% Lo parto en bloques
+            prev = prev + x(256*(k-1)+i+1+j) * x(256*(k-1)+i+1) ;
         end
         aux(k,j+1) = (1/(256-j)) * prev;
     end
