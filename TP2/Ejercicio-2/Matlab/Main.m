@@ -60,7 +60,7 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
     p7 = plot(aux_rxx, rxxnp, aux_rxx, rxxp,aux_rxx,rxxCalc);
     p7(1).LineWidth = 1.75;
     p7(2).LineWidth = 1.75;
-    legend('No polarizado', 'Polarizado','Analítico');
+    legend('No polarizado', 'Polarizado', 'Analítico');
     title('r_{xx}');
     figure();
         %%Grafico Rxx estimaciones y analitico
@@ -68,7 +68,7 @@ function [rxxp, rxxnp, phikkp, phikknp] = Main(x,kmax)
     p7 = plot(aux_rxx, Rxxnp, aux_rxx, Rxxp,aux_rxx,RxxCalc);
     p7(1).LineWidth = 1.75;
     p7(2).LineWidth = 1.75;
-    legend('No polarizado', 'Polarizado','Analítico');
+    legend('No polarizado', 'Polarizado', 'Analítico');
     title('R_{xx}');
     figure();    
 %periodograma
