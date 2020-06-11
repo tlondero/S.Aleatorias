@@ -54,7 +54,7 @@ Donde ya se obtuvo que $E\left[Y_{(t)}\right] = 0$ y
 
 Este proceso tiene media y "varianza" constantes para todo instante t.\\
 
-La autocorrelación para dos instantes t1 y t2 se encuetra calculada en el libro y nos queda como:
+La autocorrelación para dos instantes t1 y t2 se encuentra calculada en el libro y nos queda como:
 \begin{equation*}
 \begin{gathered}
 	R_{xx(t_1,t_2)} = \frac{1}{6}\left(72+ 18 \cos(t_2 - t_1)\right)
@@ -114,7 +114,7 @@ Dado que para una de las funciones no se cumple que tienda a la autocorrelación
 \subsection{Análisis Experimental}
 
 Para el análisis sobre los valores pedidos es necesario generar múltiples muestras sobre el proceso, en los instantes de tiempo requeridos. En primer lugar, se obtiene un número entero al azar entre 1 y 6, simulando la tirada de un dado, el cual determina qué función miembro del ensamble resulta.
-A partir de la determinacion de la función correspondiente se evalua en los valores de instantes t pedidos, obteniendose:
+A partir de la determinación de la función correspondiente se evaluá en los valores de instantes t pedidos, obteniéndose:
 
 \begin{enumerate}
    \item[•] $Y(\pi/2)$
@@ -125,30 +125,33 @@ A partir de la determinacion de la función correspondiente se evalua en los val
 
 Estos valores obtenidos se guardan como un vector. Luego, se repite el procedimiento N = 1000 veces 
 y se obtiene un arreglo de vectores conteniendo muestras del proceso.
-El codigo de Matlab empleado para la simulaci[on de este proceso se detalla a continuaci[on 
+El código de Matlab empleado para la simulación de este proceso se detalla a continuación 
 \\
 
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/main1.png}
-	\caption{Código Matlab de la simulación del proceso.}
-	\label{fig:main1}
-\end{figure}
 
-Donde la funcion fun-array() designa el ensamble solicitado, el c[odigo en Matlab:
+\lstinputlisting[language=Matlab]{../Ejercicio-1/Matlab/simulacion.m}
+%\begin{figure}[H]
+%\centering
+%	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/main1.png}
+%	\caption{Código Matlab de la simulación del proceso.}
+%	\label{fig:main1}
+%\end{figure}
 
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/fun_array.png}
-	\caption{La función que contiene el ensamble del proceso.}
-	\label{fig:fun_array}
-\end{figure}
+Donde la función fun-array() designa el ensamble solicitado, el código en Matlab:
+
+\lstinputlisting[language=Matlab]{../Ejercicio-1/Matlab/fun_array.m}
+%\begin{figure}[H]
+%\centering
+%	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/fun_array.png}
+%	\caption{La función que contiene el ensamble del proceso.}
+%	\label{fig:fun_array}
+%\end{figure}
 
 A continuación, por ejemplo se muestran los resultados para $Y(\pi/2)$ para N = 100 experimentos realizados.
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.4\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/ypi_2.png}
+	\includegraphics[width=0.5\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/ypi_2.png}
 	\caption{Valores del proceso $Y_(t)$ en $t = \frac{\pi}{2} $.}
 	\label{fig:ypi_2}
 \end{figure}
@@ -157,53 +160,80 @@ También para $Y(\pi/4)$.
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.4\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/ypi_4.png}
+	\includegraphics[width=0.5\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/ypi_4.png}
 	\caption{Valores del proceso $Y_(t)$ en $t = \frac{\pi}{4} $.}
 	\label{fig:ypi_4}
 \end{figure}
 
 Luego, se calculan promediando los valores pedidos con el código:
 
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/main2.png}
-	\caption{Código de Matlab de la simulación del proceso.}
-	\label{fig:main2}
-\end{figure}
+\begin{lstlisting}
+%Ploteo valores de funcion evaluada en t = pi/2 para multiples experimentos
+figure (1);
+ejex = linspace(1,cantidad_muestras,cantidad_muestras);
+scatter(ejex, muestras_totales(1,:));
+
+%Ploteo valores de funcion evaluada en t = pi/4 para multiples experimentos
+figure(2);
+ejex = linspace(1,cantidad_muestras,cantidad_muestras);
+scatter(ejex, muestras_totales(2,:));
+
+%Estimamos la media en t1= pi/2
+exp_mean_t1 = expected_value(cantidad_muestras,muestras_totales(1,:));
+
+%Estimamos la varianza en t2= pi/2
+var_t1 = var_exp(cantidad_muestras,muestras_totales(1,:));
+
+%Estimamos la autocorrelacion en t1= pi/2 y t2= pi/4
+autocorr_t1_t2 = autocorr_exp(cantidad_muestras,muestras_totales(1,:),muestras_totales(2,:));
+
+%Estimamos el coeficiente de autocorrelacion en t3= pi y t4= 2pi
+coef_autocorr_t3_t4 = autocorr_coef_exp(cantidad_muestras,muestras_totales(3,:),muestras_totales(4,:));
+\end{lstlisting}
+%\begin{figure}[H]
+%\centering
+%	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/main2.png}
+%	\caption{Código de Matlab de la simulación del proceso.}
+%	\label{fig:main2}
+%\end{figure}
 
 Detallando cada función:
 \begin{enumerate}
-\item[•] La funcio[n estimadora de la media en $t = \frac{\pi}{2}$, E$\left[ Y_{(\frac{\pi}{2})}\right]$
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/expval.png}
-	\caption{La función que calcula la media experimental del proceso.}
-	\label{fig:expval}
-\end{figure}
+\item[•] La función estimadora de la media en $t = \frac{\pi}{2}$, E$\left[ Y_{(\frac{\pi}{2})}\right]$
+\lstinputlisting[language=Matlab]{../Ejercicio-1/Matlab/expected_value.m}
+%\begin{figure}[H]
+%\centering
+%	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/expval.png}
+%	\caption{La función que calcula la media experimental del proceso.}
+%	\label{fig:expval}
+%\end{figure}
 
 \item[•] La función estimadora de la varianza en $t = \frac{\pi}{2}$, Var$\left[Y_{(\frac{\pi}{2})}\right]$
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/expvar.png}
-	\caption{La función que calcula la varianza experimental.}
-	\label{fig:expvar}
-\end{figure}
+\lstinputlisting[language=Matlab]{../Ejercicio-1/Matlab/var_exp.m}
+%\begin{figure}[H]
+%\centering
+%	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/expvar.png}
+%	\caption{La función que calcula la varianza experimental.}
+%	\label{fig:expvar}
+%\end{figure}
 
 \item[•] La función estimadora de la autocorrelación en $t_1 = \frac{\pi}{4}$ y $t_2 = \frac{\pi}{2}$, $R_{xx(\frac{\pi}{4},\frac{\pi}{2})}$
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/autocorr.png}
-	\caption{La función estimadora de la autocorrelación.}
-	\label{fig:autocorr}
-\end{figure}
+\lstinputlisting[language=Matlab]{../Ejercicio-1/Matlab/autocorr_exp.m}
+%\begin{figure}[H]
+%\centering
+%	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/autocorr.png}
+%	\caption{La función estimadora de la autocorrelación.}
+%	\label{fig:autocorr}
+%\end{figure}
 
 \item[•] La función estimadora del coeficiente de autocorrelación en $t_3 = \frac{2\pi}{4}$ y $t_4 = \pi$, $r_{xx(2\pi,\pi)}$
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/coefauto.png}
-	\caption{La función estimadora del coeficiente de autocorrelación.}
-	\label{fig:coefauto}
-\end{figure}
+\lstinputlisting[language=Matlab]{../Ejercicio-1/Matlab/autocorr_coef_exp.m}
+%\begin{figure}[H]
+%\centering
+%	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/coefauto.png}
+%	\caption{La función estimadora del coeficiente de autocorrelación.}
+%	\label{fig:coefauto}
+%\end{figure}
 \end{enumerate}
 
 Corriendo la simulación para N = 1000, se arrojaron los siguientes resultados:
@@ -214,7 +244,7 @@ Corriendo la simulación para N = 1000, se arrojaron los siguientes resultados:
 	\label{fig:result}
 \end{figure}
 
-Observando la figura (\ref{fig:result}) obtenemos que:
+Observando el código anterior obtenemos que:
 \begin{enumerate}
 	\item[•]E$\left[ Y_{(\frac{\pi}{2})}\right]$= 0.0120 
 	\item[•]Var$\left[Y_{(\frac{\pi}{2})}\right]$= 14.6159
@@ -222,11 +252,11 @@ Observando la figura (\ref{fig:result}) obtenemos que:
 	\item[•]$r_{xx(2\pi,\pi)}$= 0.5801
 \end{enumerate}
 
-Adicionalemente, analizamos para la media en $t_1 = \frac{\pi}{2}$ que E$\left[ Y_{(\frac{\pi}{2})}\right]\rightarrow 0$ a medida que se realizan simulaciones con N$\rightarrow \infty$
+Adicionalmente, analizamos para la media en $t_1 = \frac{\pi}{2}$ que E$\left[ Y_{(\frac{\pi}{2})}\right]\rightarrow 0$ a medida que se realizan simulaciones con N$\rightarrow \infty$
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/media.png}
-	\caption{El valor esperado del proceso en $t_1 = \frac{\pi}{2}$ cuando la cantidad de muetras aumenta.}
+	\caption{El valor esperado del proceso en $t_1 = \frac{\pi}{2}$ cuando la cantidad de muestras aumenta.}
 	\label{fig:media}
 \end{figure}
 
@@ -237,8 +267,8 @@ En primer lugar, en las figuras (\ref{fig:ypi_2}) y (\ref{fig:ypi_4}) se puede "
 Luego, se puede concluir que para los valores experimentales, la media en $t_1 = \frac{\pi}{2}$ es cercana a cero y a medida que aumentamos la cantidad de valores muestreados la diferencia entre el valor experimental y el valor teórico es cada vez más pequeña. De igual manera, para la varianza en $t_1 = \frac{\pi}{2}$, no se observan diferencias significativas.
 También, la autocorrelación en $t_1 = \frac{\pi}{2}$ y $t_2 = \frac{\pi}{4}$ y la autocorrelación en $t_3 = \pi$ y $t_4 = 2\pi$ denotan el mismo comportamiento hacia el valor teórico. 
 
-A medida que se toman mayor cantidad de muestras $(N \rightarrow \infty )$ los valores que se estimaron convergieron a los valores teoricos, lo cual era de esperarse puesto que el proceso tiene un ensamble simétrico y equiprobable. 
+A medida que se toman mayor cantidad de muestras $(N \rightarrow \infty )$ los valores que se estimaron convergieron a los valores teóricos, lo cual era de esperarse puesto que el proceso tiene un ensamble simétrico y equiprobable. 
 
-Los valores estimados con los muestreos del proceso no pueden estimarse mediante promedios temporales eligiendo alguna de las funciones muestras experimentales porque el proceso no es ergódico en la media ni tampoco en la autocorrelación. Esto puede observarse facilmente cuando el experimento aleatorio que determina el proceso cae en los valores de $y_{1(t)} = 6$ o $y_{6(t)} = -6$ 
+Los valores estimados con los muestreos del proceso no pueden estimarse mediante promedios temporales eligiendo alguna de las funciones muestras experimentales porque el proceso no es ergódico en la media ni tampoco en la autocorrelación. Esto puede observarse fácilmente cuando el experimento aleatorio que determina el proceso cae en los valores de $y_{1(t)} = 6$ o $y_{6(t)} = -6$.
 
 %\end{document}
