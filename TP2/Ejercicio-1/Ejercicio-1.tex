@@ -1,21 +1,20 @@
-\input{../Informe/Header.tex}
-\begin{document}
+%\input{../Informe/Header.tex}
+%\begin{document}
 \subsection{Introducción}
 
 El siguiente ejercicio parte de un análisis sobre el proceso aleatorio presente en la página 138 del libro selecto por la cátedra. Se realizarán simulaciones de dicho proceso y se calcularán experimentalmente la media, la varianza, la autocorrelación y el coeficiente de autocorrelación para ciertos valores de t dados y se realizará una comparación con los valores teóricos.
-Luego, se.... PUNTO C 
 
 \subsection{Valores teóricos}
 
 El experimento que determina el proceso es la tirada de un dado no cargado y el ensamble del mismo se detalla a continuación:
 \begin{equation} 
 	\begin{split}
-		 &y_{1} = 6 \\
-		 &y_{2} = 3sin(t) \\
-		 &y_{3} = -3sin(t) \\
-		 &y_{4} = 3cos(t) \\
-		 &y_{5} = -3cos(t) \\
-		 &y_{6} = -6
+		 &y_{1(t)} = 6 \\
+		 &y_{2(t)} = 3sin(t) \\
+		 &y_{3(t)} = -3sin(t) \\
+		 &y_{4(t)} = 3cos(t) \\
+		 &y_{5(t)} = -3cos(t) \\
+		 &y_{6(t)} = -6
 	\end{split}
 \end{equation}
 
@@ -29,7 +28,7 @@ El valor esperado teórico del proceso se obtiene de la siguiente forma:
 \end{gathered}
 \end{equation*}
 
-Reemplazando las funciones muestra dadas y que la probabilidad $P(Y_{(t)} = y_{i(t)})= \frac{1}{6}$ $ \forall i $ obtenemos que:
+Reemplazando las funciones muestra dadas y que la probabilidad $P(Y_{(t)} = y_{i(t)})= \frac{1}{6}$ $ \forall i $ obtenemos que:	
 
 \begin{equation*}
 \begin{gathered}
@@ -53,7 +52,7 @@ Donde ya se obtuvo que $E\left[Y_{(t)}\right] = 0$ y
 \end{gathered}
 \end{equation*}
 
-Este proceso tiene media y "varianza" constantes para todo instante t.
+Este proceso tiene media y "varianza" constantes para todo instante t.\\
 
 La autocorrelación para dos instantes t1 y t2 se encuetra calculada en el libro y nos queda como:
 \begin{equation*}
@@ -61,7 +60,8 @@ La autocorrelación para dos instantes t1 y t2 se encuetra calculada en el libro
 	R_{xx(t_1,t_2)} = \frac{1}{6}\left(72+ 18 \cos(t_2 - t_1)\right)
 \end{gathered}
 \end{equation*}
-Observación: El proceso tiene media constante y autocorrelación dependiente de $(t_2 - t_1)$, entonces es WSS. Por lo tanto:
+
+El proceso tiene media constante y autocorrelación dependiente de $(t_2 - t_1)$, entonces es WSS. Por lo tanto:
 \begin{equation*}
 \begin{gathered}
 	R_{xx(t,t)} = R_{xx(0,0)} = \frac{1}{6}\left(72+ 18 \cos(0)\right) = 15
@@ -83,25 +83,29 @@ Como el proceso es WSS y su media es cero cualquiera sea t:
 \end{gathered}
 \end{equation*}
 
+
 Para los instantes de t requeridos, obtenemos los siguientes resultados:
 \begin{enumerate}
 	\item[•]E$\left[ Y_{(\frac{\pi}{2})}\right]$= 0 
 	\item[•]Var$\left[Y_{(\frac{\pi}{2})}\right]$= 15
 	\item[•]$R_{xx(\frac{\pi}{4},\frac{\pi}{2})}$= $\frac{1}{6} (72 + 18 \cos(\frac{\pi}{4}))$ = 14.12132
-	\item[•]$r_{xx(2\pi,\pi)} = \frac{R_{xx(\pi,2\pi)}}{15} = \frac{ (12 + 3 \cos(\pi))}{15}$ = 0.6
+	\item[•]$r_{xx(2\pi,\pi)} = \frac{R_{xx(\pi,2\pi)}}{15} = \frac{ (12 + 3 \cos(\pi))}{15}$ = 0.6 \\
 \end{enumerate}
+
+Observando el ensamble dado se puede comprobar fácilmente que el proceso no es ergódico en la media puesto que con la función muestra $y_{1(t)} = 6$:
 
 \begin{equation*}
 \begin{split}
-	\lim_{T\to\infty} < Y_{(t)} >_T = & \lim_{T\to\infty} \frac{1}{T} \int_{-T/2}^{T/2} Y(t) dt  \neq \mu 
+	\lim_{T\to\infty} < Y_{(t)} >_T = & \lim_{T\to\infty} \frac{1}{T} \int_{-T/2}^{T/2} Y(t) dt = 1 \neq \mu 
 \end{split}
 \end{equation*}
 
+De la misma forma, se puede concluir que no es ergódico en la autocorrelación con la misma función muestra:
 
 \begin{equation*}
 \begin{split}
-	\lim_{T\to\infty} < R_{YY}(\tau) >_T = & \lim_{T\to\infty} \frac{1}{T} \int_{-T/2}^{T/2} Y(t) Y(t + \tau) dt \neq R{YY}(\tau) \ 	\forall \tau
-\end{split}
+	\lim_{T\to\infty} < R_{YY}(\tau) >_T = & \lim_{T\to\infty} \frac{1}{T} \int_{-T/2}^{T/2} Y(t) Y(t + \tau) dt = 6 \neq R{YY}(\tau) \ 	\forall \tau
+\end{split}	
 \end{equation*}
 %\underbrace{\frac{1}{6}}{y_1(t)}
 Dado que para una de las funciones no se cumple que tienda a la autocorrelación, no es ergódico en en dicha variable.\\
@@ -127,7 +131,7 @@ El codigo de Matlab empleado para la simulaci[on de este proceso se detalla a co
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/main1.png}
-	\caption{.}
+	\caption{Código Matlab de la simulación del proceso.}
 	\label{fig:main1}
 \end{figure}
 
@@ -136,7 +140,7 @@ Donde la funcion fun-array() designa el ensamble solicitado, el c[odigo en Matla
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/fun_array.png}
-	\caption{.}
+	\caption{La función que contiene el ensamble del proceso.}
 	\label{fig:fun_array}
 \end{figure}
 
@@ -145,7 +149,7 @@ A continuación, por ejemplo se muestran los resultados para $Y(\pi/2)$ para N =
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.4\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/ypi_2.png}
-	\caption{.}
+	\caption{Valores del proceso $Y_(t)$ en $t = \frac{\pi}{2} $.}
 	\label{fig:ypi_2}
 \end{figure}
 
@@ -154,18 +158,16 @@ También para $Y(\pi/4)$.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.4\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/ypi_4.png}
-	\caption{.}
+	\caption{Valores del proceso $Y_(t)$ en $t = \frac{\pi}{4} $.}
 	\label{fig:ypi_4}
 \end{figure}
 
-Observaci[on: En las Figuras (\ref{fig:ypi_2}) y (\ref{fig:ypi_4}) se puede "estimar" visualmente que la media para el proceso es cero. 
-\\
 Luego, se calculan promediando los valores pedidos con el código:
 
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/main2.png}
-	\caption{.}
+	\caption{Código de Matlab de la simulación del proceso.}
 	\label{fig:main2}
 \end{figure}
 
@@ -175,7 +177,7 @@ Detallando cada función:
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/expval.png}
-	\caption{.}
+	\caption{La función que calcula la media experimental del proceso.}
 	\label{fig:expval}
 \end{figure}
 
@@ -183,7 +185,7 @@ Detallando cada función:
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/expvar.png}
-	\caption{.}
+	\caption{La función que calcula la varianza experimental.}
 	\label{fig:expvar}
 \end{figure}
 
@@ -191,7 +193,7 @@ Detallando cada función:
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/autocorr.png}
-	\caption{.}
+	\caption{La función estimadora de la autocorrelación.}
 	\label{fig:autocorr}
 \end{figure}
 
@@ -199,7 +201,7 @@ Detallando cada función:
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/coefauto.png}
-	\caption{.}
+	\caption{La función estimadora del coeficiente de autocorrelación.}
 	\label{fig:coefauto}
 \end{figure}
 \end{enumerate}
@@ -208,7 +210,7 @@ Corriendo la simulación para N = 1000, se arrojaron los siguientes resultados:
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/result.png}
-	\caption{.}
+	\caption{Resultados de la simulación con N = 1000 muestras}
 	\label{fig:result}
 \end{figure}
 
@@ -224,17 +226,19 @@ Adicionalemente, analizamos para la media en $t_1 = \frac{\pi}{2}$ que E$\left[ 
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio1/media.png}
-	\caption{.}
+	\caption{El valor esperado del proceso en $t_1 = \frac{\pi}{2}$ cuando la cantidad de muetras aumenta.}
 	\label{fig:media}
 \end{figure}
 
 \subsection{Conclusiones sobre los resultados}
 
-Podemos concluir que para los valores experimentales, la media en $t_1 = \frac{\pi}{2}$ es cercana a cero y como se puede observar en la figura (\ref{fig:media}) a medida que aumentamos la cantidad de valores muestreados la diferencia entre el valor experimental y el valor teórico es cada vez más pequeña. De igual manera, para la varianza en $t_1 = \frac{\pi}{2}$, no se observan diferencias significativas.
+En primer lugar, en las figuras (\ref{fig:ypi_2}) y (\ref{fig:ypi_4}) se puede "estimar" visualmente que la media para el proceso es cero como primer aproximación a los valores teóricos.
+
+Luego, se puede concluir que para los valores experimentales, la media en $t_1 = \frac{\pi}{2}$ es cercana a cero y a medida que aumentamos la cantidad de valores muestreados la diferencia entre el valor experimental y el valor teórico es cada vez más pequeña. De igual manera, para la varianza en $t_1 = \frac{\pi}{2}$, no se observan diferencias significativas.
 También, la autocorrelación en $t_1 = \frac{\pi}{2}$ y $t_2 = \frac{\pi}{4}$ y la autocorrelación en $t_3 = \pi$ y $t_4 = 2\pi$ denotan el mismo comportamiento hacia el valor teórico. 
 
+A medida que se toman mayor cantidad de muestras $(N \rightarrow \infty )$ los valores que se estimaron convergieron a los valores teoricos, lo cual era de esperarse puesto que el proceso tiene un ensamble simétrico y equiprobable. 
 
+Los valores estimados con los muestreos del proceso no pueden estimarse mediante promedios temporales eligiendo alguna de las funciones muestras experimentales porque el proceso no es ergódico en la media ni tampoco en la autocorrelación. Esto puede observarse facilmente cuando el experimento aleatorio que determina el proceso cae en los valores de $y_{1(t)} = 6$ o $y_{6(t)} = -6$ 
 
-
-
-\end{document}
+%\end{document}
