@@ -1,65 +1,78 @@
+clc
+clear
 
-DEBUG =    0;
+R_VARIANCE=10;
+kmax=9;
 
-kmax=20;
-if(DEBUG==1)
-x=( sin(5*linspace(0,1,32768)*pi));
-else
+SAMPLES=100;
+
 x=load('h08g1.dat')';
-end
+
  
-x_extended= make_extended(x,kmax);
-fprintf('Size of X')
-size(x_extended)
-i=kmax;
+x_extended=x(1:SAMPLES);
+
+%i=kmax;
+for i = 1:kmax
 %         %Creamos Rxxs (estimaciones)
+fprintf('Start of %i\r\n',i);
 Rxxnp = Rnp(x,i+1);
 rxxnp = Rxxnp./Rxxnp(1);
 
 
-phikknp = cpar(rxxnp, i+1);%Coeficiente de correlacion parcial.
-phiv =phikknp(1:i);
+[phikknp, phiv, phiVarn] = cpar(rxxnp, i+1);%Coeficiente de correlacion parcial.
 
 
-A = [phiv;[eye(i-1) zeros(i-1,1)]];
-fprintf('Size of A')
-size(A)
-%        A = [0  1 ;0.5  -0.5];
+PHI = [phiv';[eye(i-1) zeros(i-1,1)]];
+
+%        PHI = [0  1 ;0.5  -0.5];
 % Observation model
-C1 = zeros(i,i);
-C1(1,1)=1;
-fprintf('Size of C')
-size(C1)
+H = zeros(i,i);
+H(1,1)=1;
+
 % Process noise covariance
-Q = .005 * eye(i);
-fprintf('Size of Q')
-size(Q)
-R=eye(i)*1.65;
-fprintf('Size of R')
-size(R)
-w = sqrt(Q) * randn(size(x_extended));
+varx=var(x);
 
-xn = x_extended + w;
+phivarnCol=phiVarn(i,1:i);
 
+rxxcol=rxxnp(2:i+1);
+
+varN= var(x)*(1-dot(phivarnCol',rxxcol));
+Q=zeros(i);
+Q(1,1)=varN;
+
+R=eye(i)*R_VARIANCE; %%VER
+
+xn = x_extended;% + w;
 z =  xn + sqrt(R(1,1)) * randn(size(xn));
-fprintf('Size of z')
-size(z)
+z=make_extended(z,i);
 
-xhat = kalman(z, A, C1, R, Q);
 
-Yhat= (C1*xhat);
+xhat = kalman(z, PHI, H, R, Q);
+
+Yhat= (H*xhat);
 Yhat=Yhat(1,:);
 zinput=z(1,:);
-xn=xn(1,:);
-plotsigs(1, zinput, Yhat, 'Measure')
-title('Signal cleanup')
-%         % Plot estimate and actual values
-plotsigsrms('Signal', 2, xn(1,:), Yhat)
-%    end
-plotsigsrms('Measurment', 3, zinput, Yhat)
-%    end
 
+hold on
+plot(zinput, 'g')
+plot(xn, 'k')
+plot(Yhat, 'r')
 
+legend({'Measurement','Input', 'Estimated'})
+title(sprintf('Salida del filtro para $$\\sigma_v^2$$ = %.2f y p = %i', R_VARIANCE, i), 'interpreter', 'latex');
+grid on;
+hold off
+if(i ~= kmax)
+figure();
+end
+err_input = (xn-zinput).^2;
+err_output = (xn-Yhat).^2;
+mse_input=mean(err_input);
+mse_output=mean(err_output);
+fprintf('MSE Data-Measure %.2f \r\n',mse_input);
+fprintf('MSE Data-Filter %.2f \r\n',mse_output);
+fprintf('End of %i\r\n',i);
+end
 
 function plotsigs(pos, sig1, sig2, sig1label)
 subplot(3,1,pos)
@@ -67,8 +80,8 @@ hold on
 plot(sig1, 'k')
 plot(sig2, 'r')
 legend({sig1label, 'Estimated'})
-
-    ylim([-5 5])
+    xlim([0 100])
+    ylim([-10 10])
 
 hold off
 end
