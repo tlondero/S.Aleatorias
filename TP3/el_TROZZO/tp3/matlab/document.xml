@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[clear
+data = load('h08g1.dat');
+n = length(data);
+figure();
+plot(data);
+grid on;
+title('Se\~{n}al de entrada', 'interpreter', 'latex');
+xlim([0 n]);
+pmax = 9;]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Se calcula la media y la varianza de los datos y luego se calcula la autocorrelacion mediante el estimador no polarizado:</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="center"/></w:pPr><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>R_{np}(k)=\frac{1}{n-k} \cdot \sum_{i=1}^{n-k}X_i\cdot X_{i+k} </w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[mu = mean(data);
+variance = var(data);
+Rxx = zeros(pmax + 1, 1);
+for p = 1:(pmax + 1)
+    k = p - 1;
+    Rxx(p) = 1 / (n - k) * sum(data(1:n-k) .* data(p:n));
+end
+scatter(0:pmax, Rxx)
+title('R_{xx}(n)')
+grid]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Ahora se buscan, para cada </w:t></w:r><w:r><w:rPr><w:b/></w:rPr><w:t>p=1,...,9</w:t></w:r><w:r><w:t>, los parametros de un modelo AR(p) que ajuste a los datos provistos. Para ello se utiliza la </w:t></w:r><w:r><w:rPr><w:b/></w:rPr><w:t>ecuacion de Yule-Walker:</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="center"/></w:pPr><w:r><w:t> </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>\vec{\Phi_p} = R^{-1}_p \cdot \vec{r_{xx}}</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[% R: matriz que contiene las 9 matrices para calcular cada Phi
+% R(p,1:p,1:p) es la matriz que permite calcular Phi_p
+R = zeros(pmax, pmax, pmax);
+% Phi: matriz que contiene los 9 vectores con los coeficientes de
+%      correlacion parcial. Phi(p,1:p) contiene Phi_p
+Phi = zeros(pmax);
+for p=1:pmax
+    % Armamos la matriz R
+    for i=1:p
+        for j=1:p
+            R(p,i,j) = Rxx(abs(i-j)+1) / Rxx(1);
+        end
+    end
+    % Armamos vector rxx con rxx(1) a rxx(p)
+    fprintf('Yule-Walker para p = %i', p);
+    rxx = Rxx(2:p+1) ./ Rxx(1);
+    auxR = squeeze(R(p,1:p,1:p));   % squeeze para que pase de "1xpxp" a "pxp"
+    fprintf('R%i = ', p);
+    disp(auxR);
+    Phi(p, 1:p) = auxR \ rxx;
+    fprintf('Phi%i = ', p);
+    disp(squeeze(Phi(p,1:p)));
+    fprintf(' ')
+end]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>No se observa que se anulen ninguno de los </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\phi_{k,k}</w:t></w:r></w:customXml><w:r><w:t>, por lo cual no se puede afirmar que alguno de los modelos se haya ajustado correctamente.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Para cada modelo AR(p) se plantea el siguiente modelo de estados para el filtro de Kalman:</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="center"/></w:pPr><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>\textbf{x}_{k+1}=\phi_p \cdot \textbf{x}_{k}+\textbf{w}_k</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="center"/></w:pPr><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>z_k=\textbf{H}_k\cdot\textbf{x}_k+v_k</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Donde:</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="center"/></w:pPr><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>\textbf{x}_k=\pmatrix{x(k) \cr x(k-1) \cr \vdots \cr x(k-p+1)  }</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="center"/></w:pPr><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>\phi_p = \pmatrix{\phi_{p,1} &amp; \phi_{p,2} &amp; ... &amp; \phi_{p,p-1} &amp; \phi_{p,p} \cr 
+1 &amp; 0 &amp; ... &amp; 0 &amp; 0 \cr
+0 &amp; 1 &amp; ... &amp; 0 &amp; 0 \cr
+\vdots &amp;  &amp; \ddots &amp; \vdots &amp; \vdots \cr
+0 &amp; 0 &amp; ... &amp; 1 &amp; 0 }  \, \epsilon \, \mathbb{R}^{pxp}</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="center"/></w:pPr><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>\textbf{w}_k = \pmatrix{ w_k \cr 0 \cr 0 \cr \vdots \cr 0 }  \, \epsilon \, \mathbb{R}^{px1}</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="center"/></w:pPr><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>\textbf{H}_k = \pmatrix{1 &amp; 0 &amp; \dots &amp; 0} \, \epsilon \, \mathbb{R}^{1xp}</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="center"/></w:pPr><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>v_k</w:t></w:r></w:customXml><w:r><w:t>: ruido blanco gaussiano de varianza </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\sigma_v^2</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[vars_len = 15;
+vars = logspace(-2,1,vars_len);
+var_to_plot = 13;
+
+nmax = n;
+nplot = 100;
+
+mse_input = zeros(pmax,1);
+mse_output = zeros(pmax,1);
+improvements = [];
+]]></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[for varV = vars
+    Z = data(1:nmax) + wgn(nmax, 1, 10*log10(varV));
+    
+    for p=1:pmax
+        
+        Phip = zeros(p);
+        Phip(1,:) = Phi(p,1:p);
+        Phip(2:end,:) = [ eye(p-1) zeros(p-1,1) ];
+    
+        Hk = zeros(1,p);
+        Hk(1) = 1;
+        
+        varN = variance * (1 - dot(Phi(p,1:p), rxx(1:p)));
+        
+        Qk = zeros(p);
+        Qk(1,1) = varN;
+        Rk = varV;
+        
+        Xminus = [ mu ; zeros(p-1,1) ];
+        % x's covariance matrix was used for Yule-Walker
+        Pminus = squeeze(R(p,1:p,1:p));
+        % Run Filter
+        output = zeros(nmax,1);
+        input = zeros(nmax,1);
+        for k=1:nmax]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>           Se obtiene la ganancia de Kalman:</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="center"/></w:pPr><w:r><w:t>           </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>\textbf{K}_k=\textbf{P}_k^-\textbf{H}_k^T(\textbf{H}_k\textbf{P}_k^-\textbf{H}_k^T+\textbf{R}_k)^{-1}</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[            Kk = Pminus*Hk'*inv(Hk*Pminus*Hk'+Rk);]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>           Se actualizan las estimaciones con las mediciones Z(k). Esta es la salida del filtro:</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="center"/></w:pPr><w:r><w:t>            </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>\hat{\textbf{x}}_k = \hat{\textbf{x}}_k^-+\textbf{K}_k(\textbf{z}_k-\textbf{H}_k\hat{\textbf{x}}_k^-)</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[            Xk = Xminus + Kk*(Z(k) - Hk*Xminus);]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>            Se obtiene la covarianza del error para la nueva estimacion:</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="center"/></w:pPr><w:r><w:t>            </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>\textbf{P}_k=(\textbf{I}-\textbf{K}_k\textbf{H}_k)\textbf{P}_k^-</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[            Pk = (eye(p)-Kk*Hk)*Pminus;]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>            Se proyecta hacia adelante. Esta es la salida si se utiliza como predictor:</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="center"/></w:pPr><w:r><w:t>            </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>\hat{\textbf{x}}^-_{k+1} = \phi_k\hat{\textbf{x}}_k</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="center"/></w:pPr><w:r><w:t>            </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="true"/></w:customXmlPr><w:r><w:t>\textbf{P}_{k+1}^-=\phi_k\textbf{P}_k\phi_k^T+\textbf{Q}_k</w:t></w:r></w:customXml></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[            Xminus = Phip*Xk;
+            Pminus = Phip*Pk*Phip' + Qk;
+            input(k) = Z(k);
+            output(k) = Xk(1);
+        end
+        ]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Se calcula el error cuadratico de la entrada con ruido, y la salida filtrada, ambos con respecto a los datos originales.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[        err_input = (data(1:nmax) - input).^2;
+        err_output = (data(1:nmax) - output).^2;
+        mse_input(p) = mean(err_input);
+        mse_output(p) = mean(err_output);
+        ]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Se elige una de las varianzas para graficar de forma representativa.    </w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[        if (varV == vars(var_to_plot) && (p == 2 || p == 9)) 
+            figure()
+            plot([data((nmax-nplot):nmax) input((nmax-nplot):end) output((nmax-nplot):end)]);
+            legend({'Data', 'Data + ruido', 'Output filtrado'});
+            title(sprintf('Salida del filtro para $$\\sigma_v^2$$ = %.2f y p = %i', varV, p), 'interpreter', 'latex');
+            xlim([0 nplot]);
+            grid on;
+            
+            figure()
+            plot([err_input err_output]);
+            legend({'Error cuadrático sin filtrado', 'Error cuadrático con filtrado'});
+            title(sprintf("Comparaci\\'on de errores cuadr\\'aticos para $$\\sigma_v^2$$ = %.2f y p = %i", varV, p), 'interpreter', 'latex');
+            xlim([0 nmax]);
+            grid on;
+            
+        end
+    end]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Si se observan los datos originales, la entrada ruidosa, y la salida filtrada en el tiempo, se puede apreciar que el filtro esta actuando correctamente, dado que la salida filtrada se asemeja mas a los valores originales. Esto se condice con lo observado en el grafico del error cuadratico, el cual presenta una mejora considerable.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[    if (varV == vars(var_to_plot))
+       figure()
+       plot([mse_input mse_output], '-o');
+       title(sprintf('MSE a la entrada vs MSE filtrado con $$\\sigma_v^2$$ = %.2f', varV), 'interpreter', 'latex');
+       grid on;
+       xlabel('p');
+       ylabel('MSE');
+       legend({'MSE_{in}', 'MSE_{out}'}, 'Location', 'best');
+       ylim([0 4])
+    end
+    
+    % Se guarda la informacion de en cuantas veces el filtro mejoro el MSE, con respecto al MSE de la señal con ruido.
+    improvements = [improvements mean((mse_input - mse_output) ./ mse_input)];
+end  ]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Respecto de la variacion del orden del modelo AR, se observa en todos los ordenes una mejora considerable del MSE en contraste al de la entrada. Sin embargo, no es tan apreciable la mejora conforme aumenta el orden del modelo. Esto puede deberse al hecho de que para ningun orden se cumple la condicion de </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>\phi_{k,k} \approx 0</w:t></w:r></w:customXml><w:r><w:t>, para </w:t></w:r><w:customXml w:element="equation"><w:customXmlPr><w:attr w:name="displayStyle" w:val="false"/></w:customXmlPr><w:r><w:t>k&gt;p</w:t></w:r></w:customXml><w:r><w:t>, es decir, no se ajustan bien.</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t></w:t></w:r></w:p><w:p><w:pPr><w:sectPr/></w:pPr></w:p><w:p><w:pPr><w:pStyle w:val="code"/></w:pPr><w:r><w:t><![CDATA[figure()
+semilogx(vars, improvements .* 100)
+grid on
+title('Mejora porcentual del MSE', 'interpreter', 'latex');
+xlabel('\sigma_v^2 : varianza del ruido de observación')
+ylabel('%')]]></w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="text"/><w:jc w:val="left"/></w:pPr><w:r><w:t>Debido a que cuando la varianza del ruido es muy baja, no hay mucho margen para la mejora con el filtro, la mejora porcentual del MSE no es amplia. Sin embargo, al aumentar la misma, la influencia del filtro de Kalman se hace mucho mas notoria, llegando a mejoras del 90%.</w:t></w:r></w:p></w:body></w:document>
