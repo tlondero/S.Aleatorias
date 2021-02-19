@@ -38,7 +38,7 @@ Se estiman la autocorrelación mediante el uso de los primeros p elementos de la
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0.7cm},clip]{./Imagenes/pend.jpg}
+	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./Imagenes/pend.jpg}
 	\caption{Grafica de los coeficientes de autocorrelación total estimados.}
 	\label{fig:rxx}
 \end{figure}
@@ -50,8 +50,10 @@ Se estiman la autocorrelación mediante el uso de los primeros p elementos de la
 Con los datos ya extraídos y mediante la resolución de la ecuación de Yule-Walker, fue posible obtener los coeficientes deseados. Esto se realizó con los coeficientes totales obtenidos a través de la estimaciones no polarizada, para cada p se obtiene un vector de tamaño $\left[ 1 \ \times \ p \right]$ que corresponde a los $\phi_{p,i}$.
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0.7cm},clip]{./Imagenes/pend.jpg}
+
+	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0},clip]{./Imagenes/pend.jpg}
 	\caption{Coeficientes de correlación parcial a partir de la matriz de Yule Walker.}
+
 	\label{fig:phikk}
 \end{figure}
 
@@ -69,8 +71,10 @@ Ecuacion \ de \ yule \  walker
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0.7cm},clip]{./Imagenes/pend.jpg}
+
+	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0.},clip]{./Imagenes/pend.jpg}
 	\caption{Grafico relevante.}
+
 	\label{fig:Rxxcalc}
 \end{figure}
 
@@ -79,9 +83,11 @@ Ecuacion \ de \ yule \  walker
 El filtro de Kalman es un filtro adaptativo recursivo el cual consiste en...
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0.7cm},clip]{./Imagenes/kalman_loop.png}
+
+	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./Imagenes/kalman_loop.png}
 	\caption{Iteración del filtro de Kalman.}
 	\label{fig:Kalman_loop}
+
 \end{figure}
 
 \subsubsection{Modelo en variables de estado}
@@ -100,25 +106,23 @@ Aca explico las matrices y el modelo estas cosas de \LaTeX esta bien piola
 	\label{fig:period-est}
 \end{figure}
 
-
-
 \subsection{Análisis de resultados}
 El mierdas comparativo con gráficosa
 \subsection{Código implementado}
 El mierda.m
-%\begin{itemize}
-%\item Main.m:
-%	\lstinputlisting[language=Matlab]{../Ejercicio-2/Matlab/Main.m}
-%	
-%\item Cpar.m:
-%	\lstinputlisting[language=Matlab]{../Ejercicio-2/Matlab/cpar.m}
-%	
-%\item Rnp.m:
-%	\lstinputlisting[language=Matlab]{../Ejercicio-2/Matlab/Rnp.m}
-%	
-%\item Rp.m:
-%	\lstinputlisting[language=Matlab]{../Ejercicio-2/Matlab/Rp.m}
-%
-%\end{itemize}
+\begin{itemize}
+\item Main.m:
+	\lstinputlisting[language=Matlab]{../Matlab/Main.m}
+	
+\item Cpar.m:
+	\lstinputlisting[language=Matlab]{../Matlab/cpar.m}
+	
+\item Rnp.m:
+	\lstinputlisting[language=Matlab]{../Matlab/Rnp.m}
+	
+\item kalman.m:
+	\lstinputlisting[language=Matlab]{../Matlab/kalman.m}
+
+\end{itemize}
 
 \end{document}
