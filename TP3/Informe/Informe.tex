@@ -37,7 +37,7 @@ En ellas se observan los parámetros $N$, es decir, el largo de $X(n)$, y $k$, v
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0.7cm},clip]{./Imagenes/pend.jpg}
+	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./Imagenes/pend.jpg}
 	\caption{Grafica de los coeficientes de autocorrelación total estimados.}
 	\label{fig:rxx}
 \end{figure}
@@ -62,7 +62,7 @@ Ya que, para el caso del vector analizado, se da la condición de que $N = 4096$
 Con los datos ya extraídos y mediante la resolución de la ecuación de Yule-Walker, fue posible obtener los coeficientes deseados. Esto se realizó con los coeficientes totales obtenidos a través de las estimaciones polarizada y no polarizada.
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0.7cm},clip]{./Imagenes/pend.jpg}
+	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0},clip]{./Imagenes/pend.jpg}
 	\caption{Grafica de los coeficientes de autocorrelación parcial obtenidos.}
 	\label{fig:phikk}
 \end{figure}
@@ -94,13 +94,13 @@ Con lo ya dicho, se procede a estimar los parámetros del proceso y compararlos 
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0.7cm},clip]{./Imagenes/pend.jpg}
+	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./Imagenes/pend.jpg}
 	\caption{Comparación de los coeficientes de autocorrelación.}
 	\label{fig:Rxxcalc}
 \end{figure}
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0.7cm},clip]{./Imagenes/pend.jpg}
+	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./Imagenes/pend.jpg}
 	\caption{Comparación de los coeficientes de autocorrelación normalizados.}
 	\label{fig:rrxxcalc2}
 \end{figure}
@@ -119,7 +119,7 @@ A continuación, se estima la la densidad espectral de potencia del vector $X(n)
 %A continuación se comparan los estimaciones obtenidas previamente con la curva obtenida a partir de lo calculado en la Subsección (\ref{subsec:modelo}).
 %\begin{figure}[H]
 %\centering
-%	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0.725cm},clip]{./ImagenesEjercicio2/densidadPot.png}
+%	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio2/densidadPot.png}
 %	\caption{Comparación de periodigramas.}
 %	\label{fig:densidadPot}
 %\end{figure}
@@ -129,7 +129,7 @@ Como era de esperarse, la diferencia entre el gráfico obtenido a través de la 
 La segunda técnica consta de la promediación de periodigramas. Para esto se partió el vector original en 16 grupos de 256 elementos, en cada grupo se calculó los primeros 128 valores de la autocorrelacion con el estimador no polarizado, luego a cada vector se le calcula la densidad espectral de potencia y finalmente se las promedia.\footnote{Se utilizó la formula 9.24 del libro}
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0.725cm},clip]{./Imagenes/pend.jpg}
+	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./Imagenes/pend.jpg}
 	\caption{Estimación de la densidad espectral de potencia mediante el uso de promediación de periodigramas.}
 	\label{fig:fft-calc}
 \end{figure}
@@ -139,7 +139,7 @@ La segunda técnica consta de la promediación de periodigramas. Para esto se pa
 Finalmente, a modo comparativo, se ilustran las estimaciones obtenidas superpuestas:
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0.725cm},clip]{./Imagenes/pend.jpg}
+	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./Imagenes/pend.jpg}
 	\caption{Estimaciones de potencia.}
 	\label{fig:fft2}
 \end{figure}
@@ -149,19 +149,19 @@ Se puede apreciar que son muy similares tanto la promediación de periodogramas 
 El mierdas comparativo con gráficos
 \subsection{Código implementado}
 El mierda.m
-%\begin{itemize}
-%\item Main.m:
-%	\lstinputlisting[language=Matlab]{../Ejercicio-2/Matlab/Main.m}
-%	
-%\item Cpar.m:
-%	\lstinputlisting[language=Matlab]{../Ejercicio-2/Matlab/cpar.m}
-%	
-%\item Rnp.m:
-%	\lstinputlisting[language=Matlab]{../Ejercicio-2/Matlab/Rnp.m}
+\begin{itemize}
+\item Main.m:
+	\lstinputlisting[language=Matlab]{../Matlab/Main.m}
+	
+\item Cpar.m:
+	\lstinputlisting[language=Matlab]{../Matlab/cpar.m}
+	
+\item kalman.m:
+	\lstinputlisting[language=Matlab]{../Matlab/kalman.m}
 %	
 %\item Rp.m:
 %	\lstinputlisting[language=Matlab]{../Ejercicio-2/Matlab/Rp.m}
 %
-%\end{itemize}
+\end{itemize}
 
 \end{document}
