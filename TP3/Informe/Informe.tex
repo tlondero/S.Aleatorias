@@ -279,7 +279,18 @@ Con lo ya dicho, se procede a estimar los parámetros del proceso y compararlos 
 \end{itemize}
 
 \subsection{Filtro de Kalman}
+
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0},clip]{./Imagenes/Kalman_Filter.png}
+	\caption{Comparación de entrada, medición y predicción del sistema.}
+	\label{fig:kalmanfilter}
+\end{figure}
+
 \subsubsection{Modelo en variables de estado}
+
+
+
 \subsubsection{Implementacion del filtro recursivo}
 A continuación, se estima la la densidad espectral de potencia del vector $X(n)$. Para ello, se emplean dos técnicas distintas. La primera consiste en el uso de la transformada de Fourier de la estimación realizada de las funciones de autocorrelación.
 \begin{figure}[H]
@@ -288,14 +299,6 @@ A continuación, se estima la la densidad espectral de potencia del vector $X(n)
 	\caption{Periodigramas obtenidos a partir de las estimaciones de $R_{XX}$.}
 	\label{fig:period-est}
 \end{figure}
-
-%A continuación se comparan los estimaciones obtenidas previamente con la curva obtenida a partir de lo calculado en la Subsección (\ref{subsec:modelo}).
-%\begin{figure}[H]
-%\centering
-%	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0},clip]{./ImagenesEjercicio2/densidadPot.png}
-%	\caption{Comparación de periodigramas.}
-%	\label{fig:densidadPot}
-%\end{figure}
 
 Como era de esperarse, la diferencia entre el gráfico obtenido a través de la estimación polarizada no difiere tanto de la no polarizada.
 
@@ -317,7 +320,13 @@ Finalmente, a modo comparativo, se ilustran las estimaciones obtenidas superpues
 Se puede apreciar que son muy similares tanto la promediación de periodogramas con la transformada de la estimación de la función de autocorrelación.
 
 \subsection{Análisis de resultados}
-El mierdas comparativo con gráficos
+
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0},clip]{./Imagenes/Error_porcentual.png}
+	\caption{Variación del error porcentual en función de la varianza.}
+	\label{fig:errorporcent}
+\end{figure}
 
 \subsection{Código implementado}
 \begin{itemize}
