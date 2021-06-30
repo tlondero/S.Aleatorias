@@ -97,7 +97,6 @@ function xtended = make_extended(x,k)
     xtended=zeros(k,size_);
    for i = 1:k
        xtended(i,:)= [zeros(1,i-1) x(1:size_-(i-1))];
-       %aca tengo que hacer que haga el extendido solo cosa de que sol con
-       %I maneje todo
+       %El extendido con I maneje todo
    end
 end

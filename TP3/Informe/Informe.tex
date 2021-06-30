@@ -22,88 +22,46 @@
 
 \subsection{Introducción}
 
-Se analiza una secuencia $X(n)$, estimando y calculando parámetros de interés, como lo son la autocorrelación, los coeficientes de correlación parcial y la densidad espectral de potencia.
+Se analiza una secuencia $X(n)$ de 32768 muestras, estimando y calculando parámetros de interés, como lo son la autocorrelación, los coeficientes de correlación parcial, a partir de estos se generará un modelo AR con el propósito de ajustar dicha serie, y con los coeficientes autoregresivos diseñar un modelo en variables de estados del sistema para utilizar un filtor de Kalman.\\
+A la secuencia se le agregará ruido blanco gaussiano aditivo (AWGN) para simular el ruido de medición.\\
+Cabe destacar que en este informe se hará referencia a una variable p, esta tiene un rango entre 1 y 9.\\
 
 \subsection{Estimación de la Autocorrelación} 
 
-Se estiman la autocorrelación mediante el uso de los primeros $128$ elementos de la secuencia brindada. Para ello, se vale los estimadores polarizados ($R_{p}$) y no polarizados ($R_{np}$) de dicho parámetro. Estas funciones son las empleadas para estimar otras funciones mediante información digitalizada.
+Se estiman la autocorrelación mediante el uso de los primeros p elementos de la secuencia brindada. Para ello, se vale del  no polarizados ($R_{np}$) de dicho parámetro. Esta funcion es  empleadas para estimar otras funciones mediante información digitalizada.
 \begin{equation}
 \begin{gathered}
-	R_{p}(k) = \frac{1}{N} \sum_{i=0}^{N-k-1} X(i)X(i+k)	\\
 	R_{np}(k) = \frac{1}{N-k} \sum_{i=0}^{N-k-1} X(i)X(i+k)
 \end{gathered}
 \end{equation}
-En ellas se observan los parámetros $N$, es decir, el largo de $X(n)$, y $k$, variable que puede tomar los valores $0, 1, ... \ , 127$. Mediante el uso de estos estimadores, se normaliza para poder obtener los coeficientes de autocorrelación $r_{XXp}$ y $r_{XXnp}$. 
+
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./Imagenes/pend.jpg}
+	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./Imagenes/correlacion.png}
 	\caption{Grafica de los coeficientes de autocorrelación total estimados.}
 	\label{fig:rxx}
 \end{figure}
 
-Se puede observar en la Figura (\ref{fig:rxx}) como ambas curvas se encuentran solapadas, haciendo que sea prácticamente imposible distinguirlas.
-Esto se debe a que existe una relación entre cada estimador, siendo esta
-\begin{equation*}
-\begin{gathered}
-	R_{p}(k) = \frac{N - k}{N} R_{np}(k)
-\end{gathered}
-\end{equation*}
 
-Ya que, para el caso del vector analizado, se da la condición de que $N = 4096$ y además $N >> k_{max} = 127$, siendo entonces
-\begin{equation*}
-\begin{gathered}
-	R_{p}(k) \approx R_{np}(k)
-\end{gathered}
-\end{equation*}
 
 \subsection{Coeficientes de correlación parcial}
 
-Con los datos ya extraídos y mediante la resolución de la ecuación de Yule-Walker, fue posible obtener los coeficientes deseados. Esto se realizó con los coeficientes totales obtenidos a través de las estimaciones polarizada y no polarizada.
+Con los datos ya extraídos y mediante la resolución de la ecuación de Yule-Walker, fue posible obtener los coeficientes deseados. Esto se realizó con los coeficientes totales obtenidos a través de la estimación no polarizada.
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0},clip]{./Imagenes/pend.jpg}
+	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0},clip]{./Imagenes/phikk.png}
 	\caption{Grafica de los coeficientes de autocorrelación parcial obtenidos.}
 	\label{fig:phikk}
 \end{figure}
 
-En la Figura (\ref{fig:phikk}) se obtuvo nuevamente una diferencia entre ambas curvas, la cual no es significativa.
 
 \subsection{Modelo del proceso}
 \label{subsec:modelo}
 
-Se procede a determinar que tipo de modelo utilizar para el proceso analizado. Observando la Figura (\ref{fig:rxx}), se denota que $r_{XX}(1)$ y $r_{XX}(2)$ son valores distintos de 0 ($-0,603$ y $0,099$ para ambas aproximaciones), mientras que los valores siguientes, si bien no son exactamente 0, son todos menores en modulo a $0,03$, lo que permite aproximarlos a 0. Además, observando la Figura (\ref{fig:phikk}), se puede afirmar que los $\phi_{kk}$ presentan un comportamiento exponencial. Es por ello que se determina que el proceso es un \textbf{MA(2)} (\textbf{ARMA(0,2)}).
+El tipo de modelo a utilizar para el proceso será un Auto Regresivo, se utilizará un AR(p).
 
-Para el calculo de los $\theta$, se utilizaron las ecuaciones
-\begin{equation}
-	r_{XX}(1) = \frac{R_{XX}(1)}{\sigma_X^2} = \frac{\theta_{2,1} + \theta_{2,1} \theta_{2,2}}{1 +\theta_{2,1}^2 + \theta_{2,2}^2}
-\end{equation}
-\begin{equation}
-	r_{XX}(2) = \frac{\theta_{2,2}}{1 +\theta_{2,1}^2 + \theta_{2,2}^2}
-\end{equation}
-
-Resolviendo dicho sistema, se obtienen los siguientes valores:
-\begin{equation}
-\begin{gathered}
-	\theta_{2,1} = -1,280	\\
-	\theta_{2,2} = 0,268	
-\end{gathered}
-\end{equation}
-
-Con lo ya dicho, se procede a estimar los parámetros del proceso y compararlos con los ya obtenidos.
-
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./Imagenes/pend.jpg}
-	\caption{Comparación de los coeficientes de autocorrelación.}
-	\label{fig:Rxxcalc}
-\end{figure}
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./Imagenes/pend.jpg}
-	\caption{Comparación de los coeficientes de autocorrelación normalizados.}
-	\label{fig:rrxxcalc2}
-\end{figure}
+Para el calculo de los $\phi$, son los obtenidos de la matriz de Yule Walker para cada p.
 
 \subsection{Matrices de la ecuación Yule-Wlaker}
 \begin{itemize}
@@ -281,7 +239,40 @@ Con lo ya dicho, se procede a estimar los parámetros del proceso y compararlos 
 \subsection{Filtro de Kalman}
 
 \subsubsection{Introducción}
-En el campo de la estadística y teoría de control, los filtros de Kalman, también conocidos como estimación cuadrática media(LQE), es un algoritmo que utiliza una serie de mediciones realizadas por un observador a través del tiempo, el cual contiene ruido estadístico y otras in-certezas, y  produce estimaciones de variables , que tienden a ser mucho mas acertadas que otras basadas en una única medicion, al estimar la distribución de probabilidad conjunta sobre las variables por cada tiempo $t_k$, El filtro es llamado así por su desarrollador, Rudolf E. Kálmán,
+En el campo de la estadística y teoría de control, los filtros de Kalman, también conocidos como estimación cuadrática media(LQE), es un algoritmo que utiliza una serie de mediciones realizadas por un observador a través del tiempo, el cual contiene ruido estadístico y otras in-certezas, y  produce estimaciones de variables , que tienden a ser mucho mas acertadas que otras basadas en una única medicion, al estimar la distribución de probabilidad conjunta sobre las variables por cada tiempo $t_k$, El filtro es llamado así por su desarrollador, Rudolf E. Kálmán.
+En filtro de Kalman puede ser escrito en una sola ecuación, sin embargo a menudo se conceptualiza como dos fases distintas.
+
+La fase de predicción y la de actualización. La fase de predicción usa la prediccion del estado $k-1$ para producir un estimado del estado actual. Esta prediccion del estado también es conocida como la estimación a-priori y no cuenta con información de la observación actual.  En la fase de actualización la diferencia entre la prediccion a-priori y la observación actual, son muliplicadas por la ganancia de Kalman, y combinada con la última estimación, para mejorarla, esto es conocido como el estimador a-posteriori.
+
+Estas dos etapas se van turnando usualmente.\\
+
+
+\subsubsection{Modelo en variables de estado}
+Para el modelo en variables de estado, se tuvieron en cuenta las siguientes matrices:
+\begin{itemize}
+\item La matriz $\Phi$ también conocida como la matriz de transición de estados está construida de la siguiente manera: la primera fila son los coeficientes del modelo autoregresivo, mientras que para el resto es la identidad.
+\item La matriz $H$ también conocida como el modelo de observación es una matriz nula excepto en la posición (0,0) donde vale 1.
+\item Q es la matriz de covarianza de ruido del proceso: Es una matriz cuadrada de p x p  donde el termino [0,0] es el ruido del proceso.
+\item R es la matriz de covarianza de ruido de observación: es una matriz cuadrada de p x p diagonal con valor $\sigma_v^2$
+\end{itemize}
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0},clip]{./Imagenes/kalman_loop.png}
+	\caption{Ciclo del filtro de Kalman.}
+	\label{fig:kalmanfilter}
+\end{figure}
+
+
+\subsubsection{Implementacion del filtro recursivo}
+En la implementación del filtro se utilizó las variables de estado detalladas en la anterior sección.
+
+En el caso del trabajo práctico se generó una secuencia  $v_k$ de ruido blanco y gaussiano con varianza R=$\sigma_v^2$ y se sumó a la secuencia $x_k$. Y a esto se le aplicó el filtro de kalman, finalmente se hizo lo mismo pero variado el valor de $\sigma_v^2$.
+
+
+\subsection{Análisis de resultados}
+A continuación se observan la señal de entrada, la señal medida y la de saldia del filtro..
+
+Aquí se observa como es la relación señal a ruido sin la utilización del filtro de Kalman, y por otro lado su mejora al utilizarlo.
 
 \begin{figure}[H]
 \centering
@@ -290,48 +281,20 @@ En el campo de la estadística y teoría de control, los filtros de Kalman, tamb
 	\label{fig:kalmanfilter}
 \end{figure}
 
-\subsubsection{Modelo en variables de estado}
 
-
-
-\subsubsection{Implementacion del filtro recursivo}
-A continuación, se estima la la densidad espectral de potencia del vector $X(n)$. Para ello, se emplean dos técnicas distintas. La primera consiste en el uso de la transformada de Fourier de la estimación realizada de las funciones de autocorrelación.
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./Imagenes/pend.jpg}
-	\caption{Periodigramas obtenidos a partir de las estimaciones de $R_{XX}$.}
-	\label{fig:period-est}
-\end{figure}
-
-Como era de esperarse, la diferencia entre el gráfico obtenido a través de la estimación polarizada no difiere tanto de la no polarizada.
-
-La segunda técnica consta de la promediación de periodigramas. Para esto se partió el vector original en 16 grupos de 256 elementos, en cada grupo se calculó los primeros 128 valores de la autocorrelacion con el estimador no polarizado, luego a cada vector se le calcula la densidad espectral de potencia y finalmente se las promedia.\footnote{Se utilizó la formula 9.24 del libro}
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./Imagenes/pend.jpg}
-	\caption{Estimación de la densidad espectral de potencia mediante el uso de promediación de periodigramas.}
-	\label{fig:fft-calc}
-\end{figure}
-
-Finalmente, a modo comparativo, se ilustran las estimaciones obtenidas superpuestas:
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 0},clip]{./Imagenes/pend.jpg}
-	\caption{Estimaciones de potencia.}
-	\label{fig:fft2}
-\end{figure}
-Se puede apreciar que son muy similares tanto la promediación de periodogramas con la transformada de la estimación de la función de autocorrelación.
-
-\subsection{Análisis de resultados}
-
+Además se varió el valor del $\sigma_v^2$ entre 0.01 $\sim$ 100 y se observó la gran mejora porcentual del MSE en función del sigma, viendo que cuanto mayor es la varianza mayor es la mejora porcentual 
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.7\textwidth, trim = {0 0 0 0},clip]{./Imagenes/Error_porcentual.png}
 	\caption{Variación del error porcentual en función de la varianza.}
 	\label{fig:errorporcent}
 \end{figure}
+\subsection{Conclusiones}
+Se observó como la utilización de un filtro de Kalman reduce significativamente el MSE en un entorno ruidoso. Una herramienta sumamente útil múltiples campos. Definitvamente en entornos donde se trata con mediciones del mundo físico el cual está sumido en ruidos.
+Al ser un filtro recursivo permite una mayor velocidad de computo que algunos que no lo son debido a que no debe tener una memoria tan grande.
 
 \subsection{Código implementado}
+A continuación se muestra todo el código utilizado en el proyecto.
 \begin{itemize}
 \item Main.m:
 	\lstinputlisting[language=Matlab]{../Matlab/Main.m}

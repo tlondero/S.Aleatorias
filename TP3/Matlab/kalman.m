@@ -11,8 +11,6 @@ n = size(H, 2);	%Number of state values
 numobs = size(z, 2);	%Number of observations
 xhat = zeros(n, numobs);	%Observation
 
-%Use linear least squares to estimate initial state from initial
-%xhat(:,1) = H \ z(:,1);
 
 %Initialize P, I
 P = ones(size(Phi));
